@@ -1,0 +1,16 @@
+<div class="jumbotron">
+    <h1>Hello, world!</h1>
+    <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.
+    </p>
+</div>
+<div class="col-xs-6 col-md-4 col-lg-4" data-ng-repeat="cat in videoCategories">
+    <div class="thumbnail">
+        <a href="/video-categories/{{ cat.urlKey }}" >
+            <img class="vid-images" ng-src="/api/mediaFile/{{ cat.imageGfsFilename }}" 
+            alt="{{ cat.name }}" />
+            <div class="caption">
+                <h4>{{ cat.name }}</h4>
+            </div>
+        </a>
+    </div>
+</div>

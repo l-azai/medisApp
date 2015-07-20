@@ -1,0 +1,71 @@
+<div class="col-sm-12">
+    <div class="page-header">
+        <h3>Video Files</h3>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="search.name" placeholder="Search Video.." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-sm-offset-2">
+                    <select name="catId" ng-model="search.catId" class="form-control"
+                        ng-options="c._id as c.name for c in videoCategories">
+                        <option value="" ng-selected="selected">
+                            Filter By Category
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Last Updated
+                </th>
+                <th>
+                    Video Name
+                </th>
+                <th>
+                    Year Released
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            <tr ng-repeat="file in videoFileList | allowNullFilter : search as results">
+                <td>
+                    {{ file.dateModified | date : 'dd-MMM-yyyy' }}
+                </td>
+                <td>
+                    {{ file.name }}
+                </td>
+                <td>
+                    {{ file.yearReleased }}
+                </td>
+                <td>
+                    {{ file.categoryName }}
+                </td>
+                <td>
+                    <a href="/admin/video-file/{{ file._id }}/edit" class="btn btn-primary btn-sm">Edit</a>
+                </td>
+            </tr>
+            <tr ng-if="results.length == 0">
+                <td colspan="5" class="text-center">
+                    No results found
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

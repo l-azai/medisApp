@@ -1,0 +1,8 @@
+<h1>
+	Error Page
+</h1>
+<p>
+	{{ message }}
+	<br/>
+	<a href='/'>Return to home</a>
+</p>

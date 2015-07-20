@@ -1,0 +1,13 @@
+<div class="row-eq-height">
+    <div class="col-xs-6 col-md-4 col-lg-4 col-xs-height" data-ng-repeat="file in videoFiles">
+        <div class="thumbnail">
+            <a href="/video-categories/{{ cat.urlKey }}" >
+                <img class="vid-images" ng-src="/api/mediaFile/{{ file.imageGfsFilename }}"
+                alt="{{ file.name }}" />
+                <div class="caption">
+                    <h4>{{ file.name }}</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

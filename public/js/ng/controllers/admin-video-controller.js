@@ -16,6 +16,7 @@
         function loadVideoAddModel() {
             $scope.videoAddModel = {};
             $scope.videoAddModel.formData = {};
+            $scope.videoAddModel.imageUploadProgress = 0;
             var addVideoForm;
 
             VideoFactory.getVideoCategories()
@@ -42,7 +43,7 @@
                     file: $scope.videoAddModel.formData.imageFile
                 })
                 .progress(function(evt) {
-                    //
+                    $scope.videoAddModel.imageUploadProgress = parseInt(100.0 * evt.loaded / evt.total);
                 })
                 .success(function(data, status, headers, config) {
                     if(data.err){

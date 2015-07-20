@@ -1,9 +1,9 @@
 <div>
     <div class="col-sm-12">
-        <tabset>
-            <tab heading="Add Video File">
-                <hr/>
-                <form class="form-horizontal" role="form" name="addVideoForm" ng-submit="addVideoForm.$valid && addVideoFile(addVideoForm)" novalidate>
+                <div class="page-header">
+                    <h3>Add VideoFile</h3>
+                </div>
+                <form class="form-horizontal" role="form" name="addVideoForm" ng-submit="addVideoForm.$valid && videoAddModel.addVideoFile(addVideoForm)" novalidate>
                     <div class="form-group" ng-show="msg">
                         <div class="col-sm-offset-3 col-sm-7">
                             <alert type="success">{{ videoAddModel.msg }}</alert>
@@ -60,11 +60,18 @@
                         </div>
                     </div>
                 </form>
-            </tab>
 
-            <tab heading="Uploads">
-                <hr/>
-                <form class="form-horizontal">
+
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <em>Queue progress</em>
+                    </div>
+                    <div class="col-sm-7">
+                        <progressbar class="progress-striped" value="videoAddModel.imageUploadProgress">{{ videoAddModel.imageUploadProgress }}%</progressbar>
+                    </div>
+                </div>
+
+                <!-- <form class="form-horizontal">
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="selectedMovieId">Video Filename</label>
                         <div class="col-sm-7">
@@ -91,7 +98,7 @@
                     <input type="submit" id="submit-file" value="Upload File" class="btn btn-primary" />
                         </div>
                     </div>
-                </form>
+                </form> -->
 
                 <!-- <form class="form-horizontal" name="uploadImageFileForm" data-ng-submit="uploadImage()" novalidate>
                     <div class="form-group">
@@ -108,16 +115,5 @@
                     </div>
                 </form> -->
 
-                <div class="form-group">
-                    <div class="col-sm-3">
-                        <em>Queue progress</em>
-                    </div>
-                    <div class="col-sm-7">
-                        <progressbar class="progress-striped" value="videoUploader.progress">{{ videoUploader.progress }}%</progressbar>
-                    </div>
-                </div>
-
-            </tab>
-        </tabset>
     </div>
 </div>

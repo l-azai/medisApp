@@ -91,7 +91,7 @@ function addVideoFile(req, res){
         //         return;
         //     }
         //
-        //     deleteFileFromTemp(req.files.file.path);
+        deleteFileFromTemp(req.files.file.path);
         //
         //     sendSuccess(res, { message: 'successfully added file' });
         // });
@@ -119,7 +119,6 @@ function getMediaFile(req, res) {
     });
 
     fileStream.on('close', function(){
-        //mongoose.disconnect();
         console.log('fileStream closed');
     });
 

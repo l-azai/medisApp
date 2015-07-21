@@ -1,119 +1,72 @@
 <div>
     <div class="col-sm-12">
-                <div class="page-header">
-                    <h3>Add VideoFile</h3>
+        <div class="page-header">
+            <h3>Add VideoFile</h3>
+        </div>
+        <form class="form-horizontal" role="form" name="addVideoForm" ng-submit="addVideoForm.$valid && videoAddModel.addVideoFile(addVideoForm)" novalidate>
+            <div class="form-group" ng-show="msg">
+                <div class="col-sm-offset-3 col-sm-7">
+                    <alert type="success">{{ videoAddModel.msg }}</alert>
                 </div>
-                <form class="form-horizontal" role="form" name="addVideoForm" ng-submit="addVideoForm.$valid && videoAddModel.addVideoFile(addVideoForm)" novalidate>
-                    <div class="form-group" ng-show="msg">
-                        <div class="col-sm-offset-3 col-sm-7">
-                            <alert type="success">{{ videoAddModel.msg }}</alert>
-                        </div>
-                    </div>
-                    <div class="form-group" ng-show="addVideoForm.$submitted && addVideoForm.$invalid">
-                        <div class="col-sm-offset-3 col-sm-7">
-                            <alert type="danger">
-                                <div ng-show="addVideoForm.categoryId.$error.required">Please select a category</div>
-                                <div ng-show="addVideoForm.videoName.$error.required">Please enter a filename</div>
-                                <div ng-show="addVideoForm.yearReleased.$error.required">Year Released is required</div>
-                                <div ng-show="addVideoForm.yearReleased.$error.pattern">Please enter a valid year (i.e. 2005)</div>
-                                <!-- <div ng-show="{{ imageUploader.queue.length === 0 }}">Please select an image to upload</div> -->
-                            </alert>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="selectedCategory">Video Category</label>
-                        <div class="col-sm-7">
-                            <select ng-model="videoAddModel.formData.categoryId" class="form-control" name="categoryId" required
-                            ng-options="c._id as c.name for c in videoAddModel.videoCategories">
-                                <option value="" ng-selected="selected">Please select...</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="videoName">Filename</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" ng-model="videoAddModel.formData.videoName" name="videoName" placeholder="Enter new video name" required />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="yearReleased">Year Released</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control"
-                                   ng-model="videoAddModel.formData.yearReleased" name="yearReleased" placeholder="Enter year released (i.e. 2005)" required />
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="col-sm-4 col-md-3 control-label" for="imageFile">select image</label>
-                        <div class="col-sm-6 col-md-7">
-                            <input class="form-control" type="file" name="imageFile" ng-model="videoAddModel.formData.imageFile" ngf-select />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-7">
-                            <input type="submit" id="submit-image" value="Add File" class="btn btn-primary" />
-                        </div>
-                    </div>
-                </form>
-
-
-                <div class="form-group">
-                    <div class="col-sm-3">
-                        <em>Queue progress</em>
-                    </div>
-                    <div class="col-sm-7">
-                        <progressbar class="progress-striped" value="videoAddModel.imageUploadProgress">{{ videoAddModel.imageUploadProgress }}%</progressbar>
-                    </div>
+            </div>
+            <div class="form-group" ng-show="addVideoForm.$submitted && addVideoForm.$invalid">
+                <div class="col-sm-offset-3 col-sm-7">
+                    <alert type="danger">
+                        <div ng-show="addVideoForm.categoryId.$error.required">Please select a category</div>
+                        <div ng-show="addVideoForm.videoName.$error.required">Please enter a filename</div>
+                        <div ng-show="addVideoForm.yearReleased.$error.required">Year Released is required</div>
+                        <div ng-show="addVideoForm.yearReleased.$error.pattern">Please enter a valid year (i.e. 2005)</div>
+                        <!-- <div ng-show="{{ imageUploader.queue.length === 0 }}">Please select an image to upload</div> -->
+                    </alert>
                 </div>
+            </div>
 
-                <!-- <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label" for="selectedMovieId">Video Filename</label>
-                        <div class="col-sm-7">
-                            <select name="selectedMovieId" class="form-control" data-ng-model="selectedMovieId" required
-                            ng-options="m._id as m.name for m in videoAddModel.movies">
-                                <option value="">Please select...</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="selectedCategory">Video Category</label>
+                <div class="col-sm-7">
+                    <select ng-model="videoAddModel.formData.categoryId" class="form-control" name="categoryId" required ng-options="c._id as c.name for c in videoAddModel.videoCategories">
+                        <option value="" ng-selected="selected">Please select...</option>
+                    </select>
+                </div>
+            </div>
 
-                <br><br>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="videoName">Filename</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" ng-model="videoAddModel.formData.videoName" name="videoName" placeholder="Enter new video name" required />
+                </div>
+            </div>
 
-                <form class="form-horizontal" name="uploadVideoFileForm" data-ng-submit="uploadVideo()" novalidate>
-                    <div class="form-group">
-                        <label  class="col-sm-3 control-label" for="videoUploader">Select Video File</label>
-                        <div class="col-sm-7">
-                            <input type="file" class="form-control" name="videoUploader" />
-                        </div>
-                    </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="yearReleased">Year Released</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" ng-model="videoAddModel.formData.yearReleased" name="yearReleased" placeholder="Enter year released (i.e. 2005)" required />
+                </div>
+            </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-7">
-                    <input type="submit" id="submit-file" value="Upload File" class="btn btn-primary" />
-                        </div>
-                    </div>
-                </form> -->
 
-                <!-- <form class="form-horizontal" name="uploadImageFileForm" data-ng-submit="uploadImage()" novalidate>
-                    <div class="form-group">
-                        <label class="col-sm-4 col-md-3 control-label" for="imageUploader">Select Image</label>
-                        <div class="col-sm-6 col-md-7">
-                            <input class="form-control" type="file" name="imageUploader" nv-file-select uploader="imageUploader" />
-                        </div>
-                    </div>
+            <div class="form-group">
+                <label class="col-sm-4 col-md-3 control-label" for="imageFile">select image</label>
+                <div class="col-sm-6 col-md-7">
+                    <input class="form-control" type="file" name="imageFile" ng-model="videoAddModel.formData.imageFile" ngf-select />
+                </div>
+            </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-offset-4 col-md-offset-3 col-sm-6 col-md-7">
-                            <input type="submit" class="btn btn-primary" id="submit-image" value="Upload Image" />
-                        </div>
-                    </div>
-                </form> -->
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-7">
+                    <input type="submit" id="submit-image" value="Add File" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
 
+
+        <div class="form-group">
+            <div class="col-sm-3">
+                <em>Queue progress</em>
+            </div>
+            <div class="col-sm-7">
+                <progressbar class="progress-striped" value="videoAddModel.imageUploadProgress">{{ videoAddModel.imageUploadProgress }}%</progressbar>
+            </div>
+        </div>
     </div>
 </div>

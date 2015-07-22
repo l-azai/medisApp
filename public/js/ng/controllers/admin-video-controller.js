@@ -60,9 +60,9 @@
                 });
             };
 
-            $scope.videoAddModel.uploadVideo = function() {
-                //$scope.videoUploader.uploadAll();
-            };
+            // $scope.videoAddModel.uploadVideo = function() {
+            //     //$scope.videoUploader.uploadAll();
+            // };
         };
 
         function loadVideoEditModel() {

@@ -46,7 +46,7 @@
 
 
             <div class="form-group">
-                <label class="col-sm-4 col-md-3 control-label" for="imageFile">select image</label>
+                <label class="col-sm-4 col-md-3 control-label" for="imageFile">Select image</label>
                 <div class="col-sm-6 col-md-7">
                     <input class="form-control" type="file" name="imageFile" ng-model="videoAddModel.formData.imageFile" ngf-select />
                 </div>
@@ -59,10 +59,9 @@
             </div>
         </form>
 
-
         <div class="form-group">
             <div class="col-sm-3">
-                <em>Queue progress</em>
+                <em>Upload progress</em>
             </div>
             <div class="col-sm-7">
                 <progressbar class="progress-striped" value="videoAddModel.imageUploadProgress">{{ videoAddModel.imageUploadProgress }}%</progressbar>

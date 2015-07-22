@@ -70,33 +70,26 @@ function getAllVideoFiles(req, res) {
 };
 
 function addVideoFile(req, res){
-
     var data = {
         name: req.body.videoFilename,
         catId: req.body.videoCategoryId,
         yearReleased: req.body.yearReleased
     };
 
-    sendSuccess(res, { message: 'successfully added file' });
-    // _videoRepos.addVideoFile(data, function(err, doc){
-    //     if(err){
-    //         sendFailure(res, err);
-    //         return;
-    //     }
+    _videoRepos.addVideoFile(data, function(err, doc){
+        if(err){
+            return sendFailure(res, err);
+        }
 
+        _videoRepos.uploadImageFile(doc._id, req.files.file.path, function(err, result){
+            if(err) {
+                return sendFailure(res, err);
+            }
 
-        // _videoRepos.uploadImageFile(doc._id, req.files.file.path, function(err, result){
-        //     if(err) {
-        //         sendFailure(res, err);
-        //         return;
-        //     }
-        //
-        deleteFileFromTemp(req.files.file.path);
-        //
-        //     sendSuccess(res, { message: 'successfully added file' });
-        // });
-
-    //});
+            deleteTempFile(req.files.file.path);
+            sendSuccess(res, { message: 'successfully added file' });
+        });
+    });
 };
 
 function deleteFile(req, res) {
@@ -236,7 +229,7 @@ function uploadVideoToVideoFile(res, movieId, filepath) {
 
         sendSuccess(res, { message: 'successfully uploaded video' });
 
-        deleteFileFromTemp(filepath);
+        deleteTempFile(filepath);
     });
 }
 
@@ -249,13 +242,13 @@ function uploadVideoToVideoFile(res, movieId, filepath) {
 //
 //         // sendSuccess(res, { message: 'successfully uploaded image' });
 //
-//         deleteFileFromTemp(filepath);
+//         deleteTempFile(filepath);
 //
 //         callback(null);
 //     });
 // };
 
-function deleteFileFromTemp(path) {
+function deleteTempFile(path) {
     fs.unlink(path, function(err){
         if(err) {
             return console.log('unable to delete file: ' + err);

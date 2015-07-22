@@ -32,8 +32,8 @@
             $scope.videoAddModel.addVideoFile = function(form){
                 addVideoForm = form;
                 var postData = {
-                    videoCategoryId: $scope.videoAddModel.formData.categoryId,
                     videoFilename: $scope.videoAddModel.formData.videoName,
+                    videoCategoryId: $scope.videoAddModel.formData.categoryId,
                     yearReleased: $scope.videoAddModel.formData.yearReleased
                 };
 

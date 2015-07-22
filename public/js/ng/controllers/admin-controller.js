@@ -4,7 +4,7 @@
             $scope.videoCategories = response.data;
         });
 
-        VideoFactory.getVideoFilesForCategory('animations').then(function(response){
+        VideoFactory.getAllVideoFiles().then(function(response){
             $scope.videoFileList = response.data;
         });
     };

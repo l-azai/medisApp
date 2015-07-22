@@ -14,15 +14,23 @@ exports.addVideoFile = addVideoFile;
 exports.getAllVideoFiles = getAllVideoFiles;
 
 function addVideoFile(data, callback) {
-    conn.model('videoFiles')
-        .create(data, function(err, doc){
-            if(err){
-                callback(err);
-				return;
-            }
+	conn.model('videoCategory')
+		.findOne({ _id: data.catId })
+		.exec(function(err, cat){
+			if(err) {
+				return callback(err);
+			}
 
-            callback(null, doc);
-        });
+			data.categoryName = cat.name;
+			conn.model('videoFiles')
+		        .create(data, function(err, doc){
+		            if(err){
+		                return callback(err);
+		            }
+
+		            callback(null, doc);
+		        });
+		});
 }
 
 function getVideoCategoryList(callback){

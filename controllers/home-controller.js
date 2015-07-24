@@ -39,6 +39,10 @@ function getVideoFileById(req, res) {
 };
 
 function adminVideoHome(req, res){
+    var page = req.query.page || 1;
+    var limitby = req.query.limitby || 10;
+    var orderby = req.query.orderby || 'name';
+
     var model = {};
 
     _videoRepos.getVideoCategoryList(function(catErr, categories){

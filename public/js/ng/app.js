@@ -29,7 +29,11 @@
                 routeAction: "admin.home",
                 resolve: {
                     model: function(AdminFactory, $route) {
-                        return AdminFactory.getAdminVideoHome();
+                        var page = $route.current.params.page;
+                        var limitby = $route.current.params.limitby;
+                        var orderby = $route.current.params.orderby;
+                        
+                        return AdminFactory.getAdminVideoHome(page, limitby, orderby);
                     }
                 }
             })

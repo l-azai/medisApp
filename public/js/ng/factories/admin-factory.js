@@ -1,7 +1,13 @@
 (function(){
     var adminFactory = function($http) {
-        var getAdminVideoHome = function() {
-            return $http.get("/api/adminVideoHome")
+        var getAdminVideoHome = function(page, limitby, orderby) {
+            var config = {
+                page: page,
+                limitby: limitby,
+                orderby: orderby
+            };
+
+            return $http.get("/api/adminVideoHome", { params: config })
                 .then(function(response) {
                     return response.data;
                 }, function(response) {

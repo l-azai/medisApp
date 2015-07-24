@@ -1,11 +1,16 @@
 (function(){
     var adminFactory = function($http) {
-        var getAdminHomeViewModel = function(){
-            return $http.get("/api/adminHomeViewModel");
+        var getAdminVideoHome = function() {
+            return $http.get("/api/adminVideoHome")
+                .then(function(response) {
+                    return response.data;
+                }, function(response) {
+                    console.log('Error: adminVideoHome. ' + response.data);
+                });
         };
 
         return {
-            getAdminHomeViewModel: getAdminHomeViewModel
+            getAdminVideoHome: getAdminVideoHome
         };
     };
 

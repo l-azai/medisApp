@@ -12,13 +12,12 @@ var _app;
 exports.init = function(app) {
 	_app = app;
 
-
     // view models
-    _app.get("/api/adminHomeViewModel", adminHomeViewModel);
+    _app.get("/api/adminVideoHome", adminVideoHome);
 
 	_app.get("/api/getVideoCategoryList", getVideoCategoryList);
-    _app.get("/api/getVideoFilesFromCategory/:category", getVideoFilesFromCategory);
-    _app.get("/api/getAllVideoFiles", getAllVideoFiles);
+    _app.get("/api/getVideosByCategory/:category", getVideosByCategory);
+    _app.get("/api/getAllVideos", getAllVideos);
     _app.get("/api/getVideoFileById/:id", getVideoFileById);
     _app.post("/api/addVideoFile", addVideoFile);
 
@@ -39,7 +38,7 @@ function getVideoFileById(req, res) {
     });
 };
 
-function adminHomeViewModel(req, res){
+function adminVideoHome(req, res){
     var model = {};
 
     _videoRepos.getVideoCategoryList(function(catErr, categories){
@@ -48,19 +47,19 @@ function adminHomeViewModel(req, res){
         }
 
         model.categories = categories;
-        _videoRepos.getAllVideoFiles(function(vfErr, files){
+        _videoRepos.getAllVideos(function(vfErr, files){
             if(vfErr) {
                 return sendFailure(res, vfErr);
             }
 
-            model.videoFiles = files;
+            model.videos = files;
             sendSuccess(res, model);
         });
     });
 };
 
-function getAllVideoFiles(req, res) {
-    _videoRepos.getAllVideoFiles(function(err, files){
+function getAllVideos(req, res) {
+    _videoRepos.getAllVideos(function(err, files){
         if(err) {
             return sendFailure(res, err);
         }
@@ -211,8 +210,8 @@ function getVideoCategoryList(req, res) {
     });
 };
 
-function getVideoFilesFromCategory(req, res) {
-    _videoRepos.getVideoFilesFromCategory(req.params.category, function(err, files){
+function getVideosByCategory(req, res) {
+    _videoRepos.getVideosByCategory(req.params.category, function(err, files){
         if(err) {
             return sendFailure(res, err);
         }

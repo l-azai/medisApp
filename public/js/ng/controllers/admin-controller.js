@@ -1,15 +1,9 @@
 (function(){
-    var adminController = function ($scope, $http, $route, AdminFactory, VideoFactory, $q) {
-        VideoFactory.getVideoCategories().then(function(response){
-            $scope.videoCategories = response.data;
-        });
-
-        VideoFactory.getAllVideoFiles().then(function(response){
-            $scope.videoFileList = response.data;
-        });
+    var adminController = function ($scope, model) {
+        $scope.videoCategories = model.categories;
+        $scope.videoFileList = model.videos;
     };
 
     angular.module("medisApp")
-        .controller("AdminController",
-        ["$scope", "$http", "$route", "AdminFactory", "VideoFactory", "$q", adminController]);
+        .controller("AdminController", ["$scope", "model", adminController]);
 }());

@@ -1,13 +1,8 @@
 (function(){
-    var vfController = function($scope, $http, $routeParams, VideoFactory){
-
-        VideoFactory.getVideoFilesForCategory($routeParams.category)
-            .then(function(response){
-                // check server status later (response.status)
-                $scope.videoFiles = response.data;
-            });
+    var vfController = function($scope, $http, videos){
+        $scope.videoFiles = videos;
     };
 
     angular.module("medisApp")
-        .controller("VideoFilesController", ["$scope", "$http", "$routeParams", "VideoFactory", vfController]);
+        .controller("VideoFilesController", ["$scope", "$http", "videos", vfController]);
 }());

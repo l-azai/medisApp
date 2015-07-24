@@ -4,14 +4,14 @@ var conn = require('./db-conn'),
     shortid = require('shortid');
 
 exports.getVideoCategoryList = getVideoCategoryList;
-exports.getVideoFilesFromCategory = getVideoFilesFromCategory;
+exports.getVideosByCategory = getVideosByCategory;
 exports.getVideoFileById = getVideoFileById;
 exports.updateVideoFileById = updateVideoFileById;
 exports.uploadVideoFile = uploadVideoFile;
 exports.uploadImageFile = uploadImageFile;
 exports.getLatestImageFile = getLatestImageFile;
 exports.addVideoFile = addVideoFile;
-exports.getAllVideoFiles = getAllVideoFiles;
+exports.getAllVideos = getAllVideos;
 
 function addVideoFile(data, callback) {
 	conn.model('videoCategory')
@@ -47,7 +47,7 @@ function getVideoCategoryList(callback){
         });
 };
 
-function getVideoFilesFromCategory(categoryKey, callback){
+function getVideosByCategory(categoryKey, callback){
     conn.model('videoCategory')
         .findOne({ urlKey: categoryKey })
         .exec(function(err, doc){
@@ -69,7 +69,7 @@ function getVideoFilesFromCategory(categoryKey, callback){
         });
 };
 
-function getAllVideoFiles(callback) {
+function getAllVideos(callback) {
 	conn.model('videoFiles')
 		.find()
 		.sort('name')

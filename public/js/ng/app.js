@@ -6,21 +6,32 @@
             .when("/videos", {
                 templateUrl: "partials/videos-home.html",
                 controller: "VideoHomeController",
-                routeAction: "video.home"
+                routeAction: "video.home",
+                resolve: {
+                    categories: function(VideoFactory) {
+                        return VideoFactory.getVideoCategories();
+                    }
+                }
             })
             .when("/video-categories/:category", {
                 templateUrl: "partials/category-items.html",
                 controller: "VideoFilesController",
-                routeAction: 'video.files'
+                routeAction: 'video.files',
+                resolve: {
+                    videos: function(VideoFactory, $route) {
+                        return VideoFactory.getVideosByCategory($route.current.params.category);
+                    }
+                }
             })
             .when("/admin", {
                 templateUrl: "partials/admin-home.html",
                 controller: "AdminController",
-                routeAction: "admin.home"
-                // *** action below will then be injected and "admin.home" is passed through
-                // ,resolve: {
-                //     action: function() { return 'admin.home'; }
-                // }
+                routeAction: "admin.home",
+                resolve: {
+                    model: function(AdminFactory, $route) {
+                        return AdminFactory.getAdminVideoHome();
+                    }
+                }
             })
             .when("/admin/video-file/add", {
                 templateUrl: "partials/admin-videofile-add.html",

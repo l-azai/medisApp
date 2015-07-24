@@ -1,14 +1,8 @@
 (function(){
-    var vhController = function($scope, $http, VideoFactory){
-
-        VideoFactory.getVideoCategories()
-            .then(function(response){
-                // check server status later (response.status)
-                $scope.videoCategories = response.data;
-            });
-
+    var vhController = function($scope, $http, categories){
+        $scope.videoCategories = categories;
     };
 
     angular.module("medisApp")
-        .controller("VideoHomeController", ["$scope", "$http", "VideoFactory", vhController]);
+        .controller("VideoHomeController", ["$scope", "$http", "categories", vhController]);
 }());

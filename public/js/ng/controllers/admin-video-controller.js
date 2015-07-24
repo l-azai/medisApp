@@ -23,7 +23,7 @@
                 .then(function(response){
                     $scope.videoAddModel.videoCategories = response.data;
 
-                    VideoFactory.getVideoFilesForCategory('animations') // hardcode for now, gets animation category
+                    VideoFactory.getVideosByCategory('animations') // hardcode for now, gets animation category
                         .then(function(response){
                             $scope.videoAddModel.movies = response.data;
                         });

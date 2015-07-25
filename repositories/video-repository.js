@@ -11,7 +11,7 @@ exports.uploadVideoFile = uploadVideoFile;
 exports.uploadImageFile = uploadImageFile;
 exports.getLatestImageFile = getLatestImageFile;
 exports.addVideoFile = addVideoFile;
-exports.getAllVideos = getAllVideos;
+exports.getVideos = getVideos;
 
 function addVideoFile(data, callback) {
 	conn.model('videoCategory')
@@ -69,17 +69,45 @@ function getVideosByCategory(categoryKey, callback){
         });
 };
 
-function getAllVideos(callback) {
-	conn.model('videoFiles')
-		.find()
-		.sort('name')
-		.exec(function(err, files){
-			if(err){
-				return callback(err);
-			}
+function getVideos(searchQuery, callback) {
+	// page, pagesize, sort, search, filter
 
-			callback(null, files);
-		});
+	if(searchQuery) {
+		conn.model('videoFiles')
+			.find(searchQuery.search || {})
+			.sort(searchQuery.sort)
+			.skip((searchQuery.page - 1) * searchQuery.pagesize)
+			.limit(searchQuery.pagesize)
+			.exec(function(err, files){
+				if(err){
+					return callback(err);
+				}
+
+				conn.model('videoFiles')
+					.find(searchQuery.search || {})
+					.count()
+					.exec(function(err, count){
+						console.log(count);
+						var records = {
+							files: files,
+							count: count
+						};
+
+						callback(null, records);
+					});
+			});
+	} else {
+		conn.model('videoFiles')
+			.find()
+			.sort('name')
+			.exec(function(err, files){
+				if(err){
+					return callback(err);
+				}
+
+				callback(null, files);
+			});
+	}
 };
 
 function getLatestImageFile(catId, callback) {

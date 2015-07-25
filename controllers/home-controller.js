@@ -17,7 +17,7 @@ exports.init = function(app) {
 
 	_app.get("/api/getVideoCategoryList", getVideoCategoryList);
     _app.get("/api/getVideosByCategory/:category", getVideosByCategory);
-    _app.get("/api/getAllVideos", getAllVideos);
+    _app.get("/api/getVideos", getVideos);
     _app.get("/api/getVideoFileById/:id", getVideoFileById);
     _app.post("/api/addVideoFile", addVideoFile);
 
@@ -38,10 +38,14 @@ function getVideoFileById(req, res) {
     });
 };
 
-function adminVideoHome(req, res){
-    var page = req.query.page || 1;
-    var limitby = req.query.limitby || 10;
-    var orderby = req.query.orderby || 'name';
+function adminVideoHome(req, res) {
+    var searchQuery = {
+        page: req.query.page || 1,
+        pagesize: req.query.pagesize || 10,
+        sort: req.query.sort || 'name',
+        search: req.query.search,
+        filter: req.query.filter
+    };
 
     var model = {};
 
@@ -51,19 +55,19 @@ function adminVideoHome(req, res){
         }
 
         model.categories = categories;
-        _videoRepos.getAllVideos(function(vfErr, files){
+        _videoRepos.getVideos(searchQuery, function(vfErr, vid){
             if(vfErr) {
                 return sendFailure(res, vfErr);
             }
 
-            model.videos = files;
+            model.videos = vid;
             sendSuccess(res, model);
         });
     });
 };
 
-function getAllVideos(req, res) {
-    _videoRepos.getAllVideos(function(err, files){
+function getVideos(req, res) {
+    _videoRepos.getVideos(function(err, files){
         if(err) {
             return sendFailure(res, err);
         }

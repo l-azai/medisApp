@@ -1,18 +1,15 @@
 (function(){
     var adminFactory = function($http) {
-        var getAdminVideoHome = function(page, limitby, orderby) {
+        var getAdminVideoHome = function(page, pagesize, sort, search, filter) {
             var config = {
                 page: page,
-                limitby: limitby,
-                orderby: orderby
+                pagesize: pagesize,
+                sort: sort,
+                search: search,
+                filter: filter
             };
 
-            return $http.get("/api/adminVideoHome", { params: config })
-                .then(function(response) {
-                    return response.data;
-                }, function(response) {
-                    console.log('Error: adminVideoHome. ' + response.data);
-                });
+            return $http.get("/api/adminVideoHome", { params: config });
         };
 
         return {

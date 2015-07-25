@@ -9,7 +9,12 @@
                 routeAction: "video.home",
                 resolve: {
                     categories: function(VideoFactory) {
-                        return VideoFactory.getVideoCategories();
+                        return VideoFactory.getVideoCategories()
+                            .then(function(response) {
+                                return response.data;
+                            }, function(response){
+                                console.log('Error: getVideoCategories. ' + response.data);
+                            });
                     }
                 }
             })
@@ -19,7 +24,12 @@
                 routeAction: 'video.files',
                 resolve: {
                     videos: function(VideoFactory, $route) {
-                        return VideoFactory.getVideosByCategory($route.current.params.category);
+                        return VideoFactory.getVideosByCategory($route.current.params.category)
+                            .then(function(response) {
+                                return response.data;
+                            }, function(response){
+                                console.log('Error: getVideosByCategory. ' + response.data);
+                            });
                     }
                 }
             })
@@ -28,12 +38,14 @@
                 controller: "AdminController",
                 routeAction: "admin.home",
                 resolve: {
-                    model: function(AdminFactory, $route) {
-                        var page = $route.current.params.page;
-                        var limitby = $route.current.params.limitby;
-                        var orderby = $route.current.params.orderby;
-                        
-                        return AdminFactory.getAdminVideoHome(page, limitby, orderby);
+                    model: function(AdminFactory) {
+
+                        return AdminFactory.getAdminVideoHome()
+                            .then(function(response) {
+                                return response.data;
+                            }, function(response) {
+                                console.log('Error: adminVideoHome. ' + response.data);
+                            });
                     }
                 }
             })

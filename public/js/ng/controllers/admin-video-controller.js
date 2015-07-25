@@ -65,6 +65,7 @@
             // };
         };
 
+        // TODO: complete video update
         function loadVideoEditModel() {
             $scope.videoEditModel = {};
             $scope.videoEditModel.hasImage = false;

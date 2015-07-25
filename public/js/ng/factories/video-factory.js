@@ -1,45 +1,25 @@
 (function(){
     var videoFactory = function($http){
         var getVideoCategories = function() {
-            return $http.get('/api/getVideoCategoryList')
-                .then(function(response) {
-                    return response.data;
-                }, function(response){
-                    console.log('Error: getVideoCategories. ' + response.data);
-                });
+            return $http.get('/api/getVideoCategoryList');
         };
 
         var getVideosByCategory = function(category) {
-            return $http.get('/api/getVideosByCategory/' + category)
-                .then(function(response) {
-                    return response.data;
-                }, function(response){
-                    console.log('Error: getVideosByCategory. ' + response.data);
-                });
+            return $http.get('/api/getVideosByCategory/' + category);
         };
 
-        var getAllVideos = function() {
-            return $http.get('/api/getAllVideos')
-                .then(function(response) {
-                    return response.data;
-                }, function(response){
-                    console.log('Error: getAllVideos. ' + response.data);
-                });
+        var getVideos = function() {
+            return $http.get('/api/getVideos');
         };
 
         var getVideoFileById = function(id) {
-            return $http.get('/api/getVideoFileById/' + id)
-                .then(function(response) {
-                    return response.data;
-                }, function(response){
-                    console.log('Error: getVideoFileById. ' + response.data);
-                });
+            return $http.get('/api/getVideoFileById/' + id);
         }
 
         return {
             getVideoCategories: getVideoCategories,
             getVideosByCategory: getVideosByCategory,
-            getAllVideos: getAllVideos,
+            getVideos: getVideos,
             getVideoFileById: getVideoFileById
         };
     };

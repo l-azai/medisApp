@@ -67,5 +67,8 @@
                 </td>
             </tr>
         </table>
+        <pagination boundary-links="true" total-items="totalRecords" ng-model="currentPage" class="pagination-sm" max-size="5"
+            previous-text="previous" next-text="next" first-text="first" last-text="last"
+            ng-change="onPageChange()"></pagination>
     </div>
 </div>

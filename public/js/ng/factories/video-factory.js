@@ -14,13 +14,18 @@
 
         var getVideoFileById = function(id) {
             return $http.get('/api/getVideoFileById/' + id);
-        }
+        };
+
+        var deleteVideo = function(id) {
+            return $http.post('/api/deleteVideo/' + id);
+        };
 
         return {
             getVideoCategories: getVideoCategories,
             getVideosByCategory: getVideosByCategory,
             getVideos: getVideos,
-            getVideoFileById: getVideoFileById
+            getVideoFileById: getVideoFileById,
+            deleteVideo: deleteVideo
         };
     };
 

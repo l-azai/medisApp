@@ -1,5 +1,5 @@
 (function() {
-    var adminController = function($scope, model, AdminFactory, $modal) {
+    var adminController = function($scope, model, AdminFactory, $modal, VideoFactory) {
         $scope.videoCategories = model.categories;
         $scope.videoFileList = model.videos.files;
         $scope.totalRecords = model.videos.count;
@@ -37,10 +37,14 @@
 
             modalInstance.result.then(function(id) {
                 // call api to delete file
+                VideoFactory.deleteVideo(id)
+                    .then(function(response){
+                        debugger;
+                    });
             });
         };
     };
 
     angular.module("medisApp")
-        .controller("AdminController", ["$scope", "model", "AdminFactory", "$modal", adminController]);
+        .controller("AdminController", ["$scope", "model", "AdminFactory", "$modal", "VideoFactory", adminController]);
 }());

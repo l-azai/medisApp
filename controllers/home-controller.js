@@ -5,6 +5,7 @@ var conn = require('../repositories/db-conn'),
     GridStore = require('mongodb').GridStore,
     mongoose = require('mongoose'),
     fs = require('fs'),
+    async = require('async'),
     shortid = require('shortid');
 
 var _app;
@@ -20,6 +21,7 @@ exports.init = function(app) {
     _app.get("/api/getVideos", getVideos);
     _app.get("/api/getVideoFileById/:id", getVideoFileById);
     _app.post("/api/addVideoFile", addVideoFile);
+    _app.post("/api/deleteVideo/:id", deleteVideo);
 
     // gfs
     _app.get("/api/mediaFile/:filename", getMediaFile);
@@ -88,15 +90,31 @@ function addVideoFile(req, res){
             return sendFailure(res, err);
         }
 
-        _videoRepos.uploadImageFile(doc._id, req.files.file.path, function(err, result){
-            if(err) {
-                return sendFailure(res, err);
-            }
+        if(req.files.file) {
+            _videoRepos.uploadImageFile(doc._id, req.files.file.path, function(err, result){
+                if(err) {
+                    return sendFailure(res, err);
+                }
 
-            deleteTempFile(req.files.file.path);
+                deleteTempFile(req.files.file.path);
+                sendSuccess(res, { message: 'successfully added file' });
+            });
+        } else {
             sendSuccess(res, { message: 'successfully added file' });
-        });
+        }
     });
+};
+
+function deleteVideo(req, res) {
+    _videoRepos.deleteVideo(req.params.id, function(err){
+        if(err) {
+            return sendFailure(res, err);
+        }
+
+
+    });
+
+    res.json('');
 };
 
 function deleteFile(req, res) {

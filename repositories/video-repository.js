@@ -1,4 +1,5 @@
 var conn = require('./db-conn'),
+	async = require('async'),
 	GridStore = require('mongodb').GridStore,
 	mongoose = require('mongoose'),
     shortid = require('shortid');
@@ -12,25 +13,45 @@ exports.uploadImageFile = uploadImageFile;
 exports.getLatestImageFile = getLatestImageFile;
 exports.addVideoFile = addVideoFile;
 exports.getVideos = getVideos;
+exports.deleteVideo = deleteVideo;
 
 function addVideoFile(data, callback) {
-	conn.model('videoCategory')
-		.findOne({ _id: data.catId })
-		.exec(function(err, cat){
-			if(err) {
-				return callback(err);
-			}
-
-			data.categoryName = cat.name;
+	async.waterfall([
+		function(cb) {
+			conn.model('videoCategory')
+				.findOne({ _id: data.catId })
+				.exec(cb);
+		},
+		function(cat, cb) {
+			data.categoryname = cat.name;
 			conn.model('videoFiles')
-		        .create(data, function(err, doc){
-		            if(err){
-		                return callback(err);
-		            }
+				.create(data, cb);
+		}
+	], function(err, doc){
+		if(err) {
+			return callback(err);
+		}
 
-		            callback(null, doc);
-		        });
-		});
+		callback(null, doc);
+	});
+
+	// conn.model('videoCategory')
+	// 	.findOne({ _id: data.catId })
+	// 	.exec(function(err, cat){
+	// 		if(err) {
+	// 			return callback(err);
+	// 		}
+	//
+	// 		data.categoryName = cat.name;
+	// 		conn.model('videoFiles')
+	// 	        .create(data, function(err, doc){
+	// 	            if(err) {
+	// 	                return callback(err);
+	// 	            }
+	//
+	// 	            callback(null, doc);
+	// 	        });
+	// 	});
 }
 
 function getVideoCategoryList(callback){
@@ -48,25 +69,25 @@ function getVideoCategoryList(callback){
 };
 
 function getVideosByCategory(categoryKey, callback){
-    conn.model('videoCategory')
-        .findOne({ urlKey: categoryKey })
-        .exec(function(err, doc){
-            if(err) {
-                callback(err);
-				return;
-            }
+	async.waterfall([
+		function(cb){
+			conn.model('videoCategory')
+				.findOne({ urlKey: categoryKey })
+				.exec(cb)
+		},
+		function(doc, cb){
+			conn.model('videoFiles')
+				.find({ catId: doc._id })
+				.sort('name')
+				.exec(cb)
+		}
+	], function(err, files) {
+		if(err){
+			return callback(err);
+		}
 
-            conn.model('videoFiles')
-                .find({ catId: doc._id })
-                .sort('name')
-                .exec(function(err, files){
-                    if(err) {
-                        return callback(err);
-                    }
-
-                    callback(null, files);
-                });
-        });
+		callback(null, files);
+	});
 };
 
 function getVideos(searchQuery, callback) {
@@ -174,4 +195,31 @@ function updateVideoFileById(id, updateObj, callback) {
 
                 callback(null, result)
             });
+};
+
+function deleteVideo(id, callback) {
+	conn.model('videoFiles')
+		.findOne({ _id: id })
+		.exec(function(err, doc){
+			if(err) {
+				return callback(err);
+			}
+
+			if(doc.imageGfsFilename) {
+				// delete image gfs file
+			}
+
+			if(doc.videoGfsFilename) {
+				// delete video gfs file
+			}
+
+			// delete file
+			doc.remove(function(err){
+				if(err) {
+					return callback(err);
+				}
+
+				callback(null);
+			});
+		});
 };

@@ -1,6 +1,6 @@
 (function(){
-    
-    var testMediaController = function($scope, $http, $routeParams){
+
+    var testMediaCtrl = function($scope, $http, $routeParams){
         $scope.deleteFile = function(){
             $http.post('/api/deleteFile/1')
                 .then(function(response){
@@ -8,7 +8,7 @@
             });
         };
     };
-    
+
     angular.module("medisApp")
-        .controller("TestMediaController", ["$scope", "$http", "$routeParams", testMediaController]);
+        .controller("TestMediaCtrl", ["$scope", "$http", "$routeParams", testMediaCtrl]);
 }());

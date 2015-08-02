@@ -3,10 +3,10 @@
         <div class="page-header">
             <h3>Add VideoFile</h3>
         </div>
-        <form class="form-horizontal" role="form" name="addVideoForm" ng-submit="addVideoForm.$valid && videoAddModel.addVideoFile(addVideoForm)" novalidate>
+        <form class="form-horizontal" role="form" name="addVideoForm" ng-submit="addVideoForm.$valid && addVideo(addVideoForm)" novalidate>
             <div class="form-group" ng-show="msg">
                 <div class="col-sm-offset-3 col-sm-7">
-                    <alert type="success">{{ videoAddModel.msg }}</alert>
+                    <alert type="success">{{ msg }}</alert>
                 </div>
             </div>
             <div class="form-group" ng-show="addVideoForm.$submitted && addVideoForm.$invalid">
@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="selectedCategory">Video Category</label>
                 <div class="col-sm-7">
-                    <select ng-model="videoAddModel.formData.categoryId" class="form-control" name="categoryId" required ng-options="c._id as c.name for c in videoAddModel.videoCategories">
+                    <select ng-model="formData.categoryId" class="form-control" name="categoryId" required ng-options="c._id as c.name for c in videoCategories">
                         <option value="" ng-selected="selected">Please select...</option>
                     </select>
                 </div>
@@ -33,14 +33,14 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="videoName">Filename</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" ng-model="videoAddModel.formData.videoName" name="videoName" placeholder="Enter new video name" required />
+                    <input type="text" class="form-control" ng-model="formData.videoName" name="videoName" placeholder="Enter new video name" required />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="yearReleased">Year Released</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" ng-model="videoAddModel.formData.yearReleased" name="yearReleased" placeholder="Enter year released (i.e. 2005)" required />
+                    <input type="text" class="form-control" ng-model="formData.yearReleased" name="yearReleased" placeholder="Enter year released (i.e. 2005)" required />
                 </div>
             </div>
 
@@ -48,7 +48,16 @@
             <div class="form-group">
                 <label class="col-sm-4 col-md-3 control-label" for="imageFile">Select image</label>
                 <div class="col-sm-6 col-md-7">
-                    <input class="form-control" type="file" name="imageFile" ng-model="videoAddModel.formData.imageFile" ngf-select />
+                    <input class="form-control" type="file" name="imageFile" ng-model="formData.imageFile" ngf-select />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-4 col-md-3">
+                    <em>Upload progress</em>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                    <progressbar class="progress-striped" value="imageUploadProgress">{{ imageUploadProgress }}%</progressbar>
                 </div>
             </div>
 
@@ -58,14 +67,5 @@
                 </div>
             </div>
         </form>
-
-        <div class="form-group">
-            <div class="col-sm-3">
-                <em>Upload progress</em>
-            </div>
-            <div class="col-sm-7">
-                <progressbar class="progress-striped" value="videoAddModel.imageUploadProgress">{{ videoAddModel.imageUploadProgress }}%</progressbar>
-            </div>
-        </div>
     </div>
 </div>

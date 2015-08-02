@@ -1,5 +1,5 @@
 (function() {
-    var modalController = function($scope, $modalInstance, modalModel) {
+    var modalCtrl = function($scope, $modalInstance, modalModel) {
         $scope.bodyText = modalModel.bodyText;
 
         $scope.yes = function() {
@@ -12,5 +12,5 @@
     };
 
     angular.module("medisApp")
-        .controller("ModalController", ["$scope", "$modalInstance", "modalModel", modalController]);
+        .controller("ModalCtrl", ["$scope", "$modalInstance", "modalModel", modalCtrl]);
 }());

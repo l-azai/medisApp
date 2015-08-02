@@ -2,20 +2,21 @@ var conn = require('./db-conn'),
 	async = require('async'),
 	GridStore = require('mongodb').GridStore,
 	mongoose = require('mongoose'),
-    shortid = require('shortid');
+    shortid = require('shortid'),
+	_gfsRepos = require('./gfs-repository')
 
 exports.getVideoCategoryList = getVideoCategoryList;
 exports.getVideosByCategory = getVideosByCategory;
 exports.getVideoFileById = getVideoFileById;
-exports.updateVideoFileById = updateVideoFileById;
+exports.updateVideoById = updateVideoById;
 exports.uploadVideoFile = uploadVideoFile;
 exports.uploadImageFile = uploadImageFile;
 exports.getLatestImageFile = getLatestImageFile;
-exports.addVideoFile = addVideoFile;
+exports.addVideo = addVideo;
 exports.getVideos = getVideos;
 exports.deleteVideo = deleteVideo;
 
-function addVideoFile(data, callback) {
+function addVideo(data, callback) {
 	async.waterfall([
 		function(cb) {
 			conn.model('videoCategory')
@@ -34,25 +35,22 @@ function addVideoFile(data, callback) {
 
 		callback(null, doc);
 	});
+};
 
-	// conn.model('videoCategory')
-	// 	.findOne({ _id: data.catId })
-	// 	.exec(function(err, cat){
-	// 		if(err) {
-	// 			return callback(err);
-	// 		}
-	//
-	// 		data.categoryName = cat.name;
-	// 		conn.model('videoFiles')
-	// 	        .create(data, function(err, doc){
-	// 	            if(err) {
-	// 	                return callback(err);
-	// 	            }
-	//
-	// 	            callback(null, doc);
-	// 	        });
-	// 	});
-}
+function updateVideoById(id, updateObj, callback) {
+    updateObj.dateModified = Date.now();
+
+    conn.model('videoFiles')
+        .update({ _id: id },
+	            { $set: updateObj },
+	            function(err, result){
+	                if(err){
+	                    return callback(err);
+	                }
+
+	                callback(null, result)
+	            });
+};
 
 function getVideoCategoryList(callback){
     conn.model('videoCategory')
@@ -60,8 +58,7 @@ function getVideoCategoryList(callback){
         .sort('name')
         .exec(function(err, docs){
             if(err) {
-                callback(err);
-				return;
+                return callback(err);
             }
 
             callback(null, docs);
@@ -81,7 +78,8 @@ function getVideosByCategory(categoryKey, callback){
 				.sort('name')
 				.exec(cb)
 		}
-	], function(err, files) {
+	],
+	function(err, files) {
 		if(err){
 			return callback(err);
 		}
@@ -166,7 +164,7 @@ function uploadVideoFile(id, filepath, callback) {
             return callback(err);
         }
 
-        updateVideoFileById(id, { videoGfsFilename: doc.filename }, callback);
+        updateVideoById(id, { videoGfsFilename: doc.filename }, callback);
     });
 };
 
@@ -178,42 +176,81 @@ function uploadImageFile(id, filepath, callback) {
             return callback(err);
         }
 
-        updateVideoFileById(id, { imageGfsFilename: doc.filename }, callback);
+        updateVideoById(id, { imageGfsFilename: doc.filename }, callback);
     });
 };
 
-function updateVideoFileById(id, updateObj, callback) {
-    updateObj.dateModified = Date.now();
-
-    conn.model('videoFiles')
-        .update({ _id: id },
-            { $set: updateObj },
-            function(err, result){
-                if(err){
-                    return callback(err);
-                }
-
-                callback(null, result)
-            });
-};
-
 function deleteVideo(id, callback) {
-	conn.model('videoFiles')
-		.findOne({ _id: id })
-		.exec(function(err, doc){
+	async.waterfall([
+		function(cb){
+			conn.model('videoFiles')
+				.findOne({ _id: id })
+				.exec(cb);
+		}
+	],
+	function(err, doc) {
+		if(err) {
+			return callback(err);
+		}
+
+		// call delete imageGfs and videoGfs in parallel
+		async.parallel([
+			// delete imageGfs
+			function(pcb){
+				if(doc.imageGfsFilename) {
+					async.waterfall([
+						function(wcb) {
+							_gfsRepos.checkIfGridFsFileExists(doc.imageGfsFilename, wcb);
+						},
+						function(exists, wcb) {
+							if(exists) {
+								_gfsRepos.deleteGridFsFile(doc.imageGfsFilename, wcb);
+							} else {
+								wcb();
+							}
+						}
+					], function(err, result){
+						if(err) {
+							return pcb(err);
+						}
+
+						pcb(null, result);
+					});
+				} else {
+					pcb();
+				}
+			},
+			// delete videoGfs
+			function(pcb) {
+				if(doc.videoGfsFilename) {
+					async.waterfall([
+						function(wcb) {
+							_gfsRepos.checkIfGridFsFileExists(doc.videoGfsFilename, wcb);
+						},
+						function(exists, wcb) {
+							if(exists) {
+								_gfsRepos.deleteGridFsFile(doc.videoGfsFilename, wcb);
+							} else {
+								wcb();
+							}
+						}
+					], function(err, result){
+						if(err) {
+							return pcb(err);
+						}
+
+						pcb(null, result);
+					});
+				} else {
+					pcb(null);
+				}
+			}
+		],
+		function(err, result){
 			if(err) {
-				return callback(err);
+				return cb(err);
 			}
-
-			if(doc.imageGfsFilename) {
-				// delete image gfs file
-			}
-
-			if(doc.videoGfsFilename) {
-				// delete video gfs file
-			}
-
-			// delete file
+			// if no error for image and video gfs, then just delete doc
 			doc.remove(function(err){
 				if(err) {
 					return callback(err);
@@ -222,4 +259,5 @@ function deleteVideo(id, callback) {
 				callback(null);
 			});
 		});
+	});
 };

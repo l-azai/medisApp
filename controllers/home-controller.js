@@ -20,7 +20,8 @@ exports.init = function(app) {
     _app.get("/api/getVideosByCategory/:category", getVideosByCategory);
     _app.get("/api/getVideos", getVideos);
     _app.get("/api/getVideoFileById/:id", getVideoFileById);
-    _app.post("/api/addVideoFile", addVideoFile);
+    _app.post("/api/addVideo", addVideo);
+    _app.post("/api/updateVideoById", updateVideoById);
     _app.post("/api/deleteVideo/:id", deleteVideo);
 
     // gfs
@@ -78,14 +79,14 @@ function getVideos(req, res) {
     });
 };
 
-function addVideoFile(req, res){
+function addVideo(req, res){
     var data = {
         name: req.body.videoFilename,
         catId: req.body.videoCategoryId,
         yearReleased: req.body.yearReleased
     };
 
-    _videoRepos.addVideoFile(data, function(err, doc){
+    _videoRepos.addVideo(data, function(err, doc){
         if(err){
             return sendFailure(res, err);
         }
@@ -105,16 +106,43 @@ function addVideoFile(req, res){
     });
 };
 
+function updateVideoById(req, res) {
+    var data = {
+        name: req.body.videoFilename,
+        catId: req.body.videoCategoryId,
+        yearReleased: req.body.yearReleased
+    };
+
+    _videoRepos.updateVideoById(req.body.id, data, function(err, doc){
+        if(err){
+            return sendFailure(res, err);
+        }
+
+        sendSuccess(res, { message: 'successfully added file' });
+
+        // if(req.files.file) {
+        //     _videoRepos.uploadImageFile(doc._id, req.files.file.path, function(err, result){
+        //         if(err) {
+        //             return sendFailure(res, err);
+        //         }
+        //
+        //         deleteTempFile(req.files.file.path);
+        //         sendSuccess(res, { message: 'successfully added file' });
+        //     });
+        // } else {
+        //     sendSuccess(res, { message: 'successfully added file' });
+        // }
+    });
+};
+
 function deleteVideo(req, res) {
     _videoRepos.deleteVideo(req.params.id, function(err){
         if(err) {
             return sendFailure(res, err);
         }
 
-
+        sendSuccess(res, { data: 'document deleted successfully' });
     });
-
-    res.json('');
 };
 
 function deleteFile(req, res) {

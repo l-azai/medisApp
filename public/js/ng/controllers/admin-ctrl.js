@@ -1,11 +1,11 @@
 (function() {
-    var adminController = function($scope, model, AdminFactory, $modal, VideoFactory) {
+    var adminCtrl = function($scope, $route, model, AdminFactory, $modal, VideoFactory) {
         $scope.videoCategories = model.categories;
         $scope.videoFileList = model.videos.files;
         $scope.totalRecords = model.videos.count;
         $scope.currentPage = 1;
 
-        $scope.onPageChange = function() {
+        $scope.loadGrid = function() {
             var page = $scope.currentPage;
             var pagesize = 10; // set later
             var sort = ''; // set later
@@ -23,7 +23,7 @@
                 animation: true,
                 templateUrl: 'partials/confirmation-modal.html',
                 size: 'sm',
-                controller: 'ModalController',
+                controller: 'ModalCtrl',
                 resolve: {
                     modalModel: function() {
                         var model = {
@@ -38,13 +38,15 @@
             modalInstance.result.then(function(id) {
                 // call api to delete file
                 VideoFactory.deleteVideo(id)
-                    .then(function(response){
+                    .then(function(response) {
+                        // display message
                         debugger;
+                        $route.reload();
                     });
             });
         };
     };
 
     angular.module("medisApp")
-        .controller("AdminController", ["$scope", "model", "AdminFactory", "$modal", "VideoFactory", adminController]);
+        .controller("AdminCtrl", ["$scope", "$route", "model", "AdminFactory", "$modal", "VideoFactory", adminCtrl]);
 }());

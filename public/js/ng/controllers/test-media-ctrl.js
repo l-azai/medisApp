@@ -9,6 +9,6 @@
         };
     };
 
-    angular.module("medisApp")
+    angular.module("medisApp.ctrl")
         .controller("TestMediaCtrl", ["$scope", "$http", "$routeParams", testMediaCtrl]);
 }());

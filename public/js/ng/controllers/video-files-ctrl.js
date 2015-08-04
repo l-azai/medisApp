@@ -3,6 +3,6 @@
         $scope.videoFiles = videos;
     };
 
-    angular.module("medisApp")
+    angular.module("medisApp.ctrl")
         .controller("VideoFilesCtrl", ["$scope", "$http", "videos", videoFilesCtrl]);
 }());

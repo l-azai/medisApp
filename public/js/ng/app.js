@@ -1,5 +1,7 @@
 (function(){
-    var mod = angular.module("medisApp", ["ngRoute", "ngFileUpload", "ui.bootstrap", "ngSanitize"]);
+    var mod = angular.module("medisApp",
+    ["medisApp.ctrl", "medisApp.svc", "medisApp.filters",
+    "ngRoute", "ngFileUpload", "ui.bootstrap", "ngSanitize"]);
 
     mod.config(function($routeProvider, $locationProvider){
         $routeProvider
@@ -66,25 +68,23 @@
                 templateUrl: "partials/admin-videofile-edit.html",
                 controller: "AdminVideoEditCtrl",
                 resolve: {
-                    model: function(VideoFactory, $route) {
-                        var videoEditModel = {};
+                    model: function(VideoFactory, $q, $route) {
+                        var promiseCat = VideoFactory.getVideoCategories();
+                        var promiseVideoFile = VideoFactory.getVideoFileById($route.current.params.id);
 
-                        return VideoFactory.getVideoCategories()
-                            .then(function(response){
-                                videoEditModel.videoCategories = response.data;
+                        return $q.all([promiseCat, promiseVideoFile]).then(function(response){
+                                    var videoEditModel = {};
+                                    videoEditModel.videoCategories = response[0].data;
 
-                                return VideoFactory.getVideoFileById($route.current.params.id).
-                                    then(function(response2){
-                                        videoEditModel.id = response2.data._id;
-                                        videoEditModel.categoryId = response2.data.catId;
-                                        videoEditModel.videoName = response2.data.name;
-                                        videoEditModel.yearReleased = response2.data.yearReleased;
-                                        videoEditModel.hasImage = response2.data.imageGfsFilename ? true : false;
-                                        videoEditModel.hasVideo = response2.data.videoGfsFilename ? true : false;
+                                    videoEditModel.id = response[1].data._id;
+                                    videoEditModel.categoryId = response[1].data.catId;
+                                    videoEditModel.videoName = response[1].data.name;
+                                    videoEditModel.yearReleased = response[1].data.yearReleased;
+                                    videoEditModel.hasImage = response[1].data.imageGfsFilename ? true : false;
+                                    videoEditModel.hasVideo = response[1].data.videoGfsFilename ? true : false;
 
-                                        return videoEditModel;
+                                    return videoEditModel;
                                 });
-                            });
                     }
                 }
             })

@@ -3,6 +3,6 @@
         $scope.videoCategories = categories;
     };
 
-    angular.module("medisApp")
+    angular.module("medisApp.ctrl")
         .controller("VideoHomeCtrl", ["$scope", "$http", "categories", videoHomeCtrl]);
 }());

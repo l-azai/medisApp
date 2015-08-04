@@ -33,6 +33,6 @@
         };
     };
 
-    angular.module("medisApp")
+    angular.module("medisApp.filters")
         .filter("allowNullFilter", allowNullFilter);
 }());

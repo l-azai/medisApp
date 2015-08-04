@@ -37,6 +37,6 @@
         };
     };
 
-    angular.module("medisApp")
+    angular.module("medisApp.ctrl")
         .controller("AdminVideoAddCtrl", ["$scope", "Upload", "model", adminVideoAddCtrl]);
 }());

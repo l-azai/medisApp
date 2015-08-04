@@ -6,6 +6,6 @@
         };
     };
 
-    angular.module("medisApp")
+    angular.module("medisApp.ctrl")
         .controller("NavCtrl", ["$scope", "$location", navCtrl]);
 }());

@@ -4,6 +4,13 @@
         $scope.videoFileList = model.videos.files;
         $scope.totalRecords = model.videos.count;
         $scope.currentPage = 1;
+        $scope.pageSizeList = [
+            { value: 10, selected: true },
+            { value: 20 },
+            { value: 30 },
+            { value: 40 },
+            { value: 50 }
+        ];
 
         $scope.loadGrid = function() {
             var page = $scope.currentPage;
@@ -39,7 +46,7 @@
                 // call api to delete file
                 VideoFactory.deleteVideo(id)
                     .then(function(response) {
-                        // display message
+                        // TODO: display message
                         debugger;
                         $route.reload();
                     });
@@ -47,6 +54,6 @@
         };
     };
 
-    angular.module("medisApp")
+    angular.module("medisApp.ctrl")
         .controller("AdminCtrl", ["$scope", "$route", "model", "AdminFactory", "$modal", "VideoFactory", adminCtrl]);
 }());

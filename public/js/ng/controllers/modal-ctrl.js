@@ -11,6 +11,6 @@
         };
     };
 
-    angular.module("medisApp")
+    angular.module("medisApp.ctrl")
         .controller("ModalCtrl", ["$scope", "$modalInstance", "modalModel", modalCtrl]);
 }());

@@ -5,7 +5,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="input-group">
                         <input type="text" class="form-control" ng-model="search.name" placeholder="Search Video.." />
                         <span class="input-group-btn">
@@ -15,7 +15,12 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-4 col-sm-offset-2">
+                <div class="col-sm-offset-1 col-sm-2">
+                    <select class="form-control" ng-init="pageSize = pageSizeList[0]" ng-model="pageSize"
+                    ng-options="size.value for size in pageSizeList">
+                    </select>
+                </div>
+                <div class="col-sm-3 col-md-3">
                     <select name="catId" ng-model="search.catId" class="form-control"
                         ng-options="c._id as c.name for c in videoCategories">
                         <option value="" ng-selected="selected">

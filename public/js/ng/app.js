@@ -38,7 +38,7 @@
                 controller: "AdminCtrl",
                 resolve: {
                     model: function(AdminFactory) {
-                        return AdminFactory.getAdminVideoHome()
+                        return AdminFactory.getVideoSearchResults()
                             .then(function(response) {
                                 return response.data;
                             }, function(response) {

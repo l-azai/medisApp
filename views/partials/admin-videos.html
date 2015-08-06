@@ -11,16 +11,16 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="input-group">
-                        <input type="text" class="form-control" ng-model="search.name" placeholder="Search Videos.." />
+                        <input type="text" class="form-control" ng-model="searchText" placeholder="Search Videos.." />
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-primary" type="button" ng-click="loadGrid()">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <select name="catId" ng-model="search.catId" class="form-control"
+                    <select name="catId" ng-model="categoryFilter" class="form-control" ng-change="loadGrid()"
                         ng-options="c._id as c.name for c in videoCategories">
                         <option value="" ng-selected="selected">
                             Filter By Category
@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <pagination boundary-links="true" total-items="totalRecords" ng-model="currentPage" class="pagination-sm" max-size="5"
+        <pagination boundary-links="true" total-items="totalRecords" ng-model="currentPage" class="pagination-sm pagination-info" max-size="5"
             previous-text="previous" next-text="next" first-text="first" last-text="last" items-per-page="pageSize"
             ng-change="loadGrid()"></pagination>
 

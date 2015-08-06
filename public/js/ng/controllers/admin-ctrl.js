@@ -9,12 +9,12 @@
 
         $scope.loadGrid = function() {
             var page = $scope.currentPage;
-            var pagesize = $scope.pageSize; // set later
+            var pagesize = $scope.pageSize;
             var sort = ''; // set later
-            var search = '';
-            var filter = '';
+            var search = $scope.searchText;
+            var categoryFilter = $scope.categoryFilter;
 
-            AdminFactory.getAdminVideoHome(page, pagesize, sort, search, filter)
+            AdminFactory.getVideoSearchResults(page, pagesize, sort, search, categoryFilter)
                 .then(function(response) {
                     $scope.videosList = response.data.videos.files;
                     $scope.totalRecords = response.data.videos.count;
@@ -41,7 +41,8 @@
             modalInstance.result.then(function(id) {
                 VideoFactory.deleteVideo(id)
                     .then(function(response) {
-                        $route.reload();
+                        // TODO: show message
+                        $scope.loadGrid();
                     });
             });
         };

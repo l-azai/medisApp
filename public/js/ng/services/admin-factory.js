@@ -1,19 +1,19 @@
 (function(){
     var adminFactory = function($http) {
-        var getAdminVideoHome = function(page, pagesize, sort, search, filter) {
+        var getVideoSearchResults = function(page, pagesize, sort, search, categoryFilter) {
             var config = {
                 page: page,
                 pagesize: pagesize,
                 sort: sort,
                 search: search,
-                filter: filter
+                categoryFilter: categoryFilter
             };
 
-            return $http.get("/api/adminVideoHome", { params: config });
+            return $http.get("/api/adminVideoSearchResults", { params: config });
         };
 
         return {
-            getAdminVideoHome: getAdminVideoHome
+            getVideoSearchResults: getVideoSearchResults
         };
     };
 

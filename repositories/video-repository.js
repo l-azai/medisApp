@@ -97,11 +97,14 @@ function getVideosByCategory(categoryKey, callback){
 };
 
 function getVideos(searchQuery, callback) {
-	// page, pagesize, sort, search, filter
+	// page, pagesize, sort, search, categoryFilter
 
 	if(searchQuery) {
+		var query = new RegExp(searchQuery.search, 'i');
+
 		conn.model('videoFiles')
-			.find(searchQuery.search || {})
+			.find(searchQuery.search ? { name: query } : {})
+			.find(searchQuery.categoryFilter ? { catId: searchQuery.categoryFilter } : {})
 			.sort(searchQuery.sort)
 			.skip((searchQuery.page - 1) * searchQuery.pagesize)
 			.limit(searchQuery.pagesize)
@@ -109,7 +112,7 @@ function getVideos(searchQuery, callback) {
 				if(err){
 					return callback(err);
 				}
-
+				//TODO: fix Count
 				conn.model('videoFiles')
 					.find(searchQuery.search || {})
 					.count()

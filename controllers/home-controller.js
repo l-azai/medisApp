@@ -14,7 +14,7 @@ exports.init = function(app) {
 	_app = app;
 
     // view models
-    _app.get("/api/adminVideoHome", adminVideoHome);
+    _app.get("/api/adminVideoSearchResults", adminVideoSearchResults);
 
 	_app.get("/api/getVideoCategoryList", getVideoCategoryList);
     _app.get("/api/getVideosByCategory/:category", getVideosByCategory);
@@ -41,13 +41,13 @@ function getVideoFileById(req, res) {
     });
 };
 
-function adminVideoHome(req, res) {
+function adminVideoSearchResults(req, res) {
     var searchQuery = {
         page: req.query.page || 1,
         pagesize: req.query.pagesize || 10,
         sort: req.query.sort || 'name',
         search: req.query.search,
-        filter: req.query.filter
+        categoryFilter: req.query.categoryFilter
     };
 
     var model = {};
@@ -120,6 +120,7 @@ function updateVideoById(req, res) {
 
         sendSuccess(res, { message: 'successfully added file' });
 
+        // TODO:
         // if(req.files.file) {
         //     _videoRepos.uploadImageFile(doc._id, req.files.file.path, function(err, result){
         //         if(err) {

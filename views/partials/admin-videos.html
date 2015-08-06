@@ -71,7 +71,7 @@
 
                 </th>
             </tr>
-            <tr ng-repeat="file in videosList | allowNullFilter : search as results">
+            <tr ng-repeat="file in videosList as results">
                 <td>
                     {{ file.dateModified | date : 'dd-MMM-yyyy' }}
                 </td>
@@ -86,14 +86,14 @@
                 </td>
                 <td>
                     <a href="/admin/video/{{ file._id }}/edit" class="btn btn-primary btn-xs">
-                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-edit"></span>
                     </a>
                     <button type="button" ng-click="confirmDelete(file._id, file.name)" class="btn btn-danger btn-xs">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
                 </td>
             </tr>
-            <tr ng-if="results.length == 0">
+            <tr ng-if="videosList == null || videosList.length == 0">
                 <td colspan="5" class="text-center">
                     No results found
                 </td>

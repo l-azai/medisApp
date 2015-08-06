@@ -24,7 +24,7 @@ function addVideo(data, callback) {
 				.exec(cb);
 		},
 		function(cat, cb) {
-			data.categoryname = cat.name;
+			data.categoryName = cat.name;
 			conn.model('videoFiles')
 				.create(data, cb);
 		}
@@ -40,16 +40,24 @@ function addVideo(data, callback) {
 function updateVideoById(id, updateObj, callback) {
     updateObj.dateModified = Date.now();
 
-    conn.model('videoFiles')
-        .update({ _id: id },
-	            { $set: updateObj },
-	            function(err, result){
-	                if(err){
-	                    return callback(err);
-	                }
+	async.waterfall([
+		function(cb) {
+			conn.model('videoCategory')
+				.findOne({ _id: updateObj.catId })
+				.exec(cb);
+		},
+		function(cat, cb) {
+			updateObj.categoryName = cat.name;
+			conn.model('videoFiles')
+		        .update({ _id: id }, { $set: updateObj }, cb);
+		}
+	], function(err, doc){
+		if(err) {
+			return callback(err);
+		}
 
-	                callback(null, result)
-	            });
+		callback(null, doc);
+	});
 };
 
 function getVideoCategoryList(callback){

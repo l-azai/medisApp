@@ -5,8 +5,8 @@
 </div>
 <div class="col-xs-6 col-md-4 col-lg-4" data-ng-repeat="cat in videoCategories">
     <div class="thumbnail">
-        <a href="/video-categories/{{ cat.urlKey }}" >
-            <img class="vid-images" ng-src="/api/mediaFile/{{ cat.imageGfsFilename }}" 
+        <a href="/videos/{{ cat.urlKey }}" >
+            <img class="vid-images" ng-src="/api/mediaFile/{{ cat.imageGfsFilename }}"
             alt="{{ cat.name }}" />
             <div class="caption">
                 <h4>{{ cat.name }}</h4>

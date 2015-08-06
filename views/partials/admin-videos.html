@@ -1,6 +1,10 @@
 <div class="col-sm-12">
     <div class="page-header">
-        <h3>Video Files</h3>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3><span class="glyphicon glyphicon-film"></span> Videos</h3>
+            </div>
+        </div>
     </div>
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -15,7 +19,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-3 col-md-3">
+                <div class="col-sm-3">
                     <select name="catId" ng-model="search.catId" class="form-control"
                         ng-options="c._id as c.name for c in videoCategories">
                         <option value="" ng-selected="selected">
@@ -23,17 +27,22 @@
                         </option>
                     </select>
                 </div>
-                <div class="col-sm-offset-3 col-sm-2">
+                <div class="col-sm-2">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label class="small hidden-xs hidden-sm" for="pageSize">Show:</label>
+                            <select id="pageSize" class="form-control" ng-model="pageSize" ng-change="loadGrid()"
+                            ng-options="size for size in pageSizeList">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-3">
                     <div class="row">
-                        <div class="col-sm-offset-1 col-sm-11">
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <label class="small hidden-xs hidden-sm" for="pageSize">Show:</label>
-                                    <select id="pageSize" class="form-control" ng-model="pageSize" ng-change="loadGrid()"
-                                    ng-options="size for size in pageSizeList">
-                                    </select>
-                                </div>
-                            </form>
+                        <div class="col-sm-offset-5 col-sm-5 col-md-offset-7 col-md-5">
+                            <a href="/admin/video/add" class="btn btn-success">
+                                <span class="glyphicon glyphicon-plus"></span> New
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -41,7 +50,7 @@
         </div>
 
         <pagination boundary-links="true" total-items="totalRecords" ng-model="currentPage" class="pagination-sm" max-size="5"
-            previous-text="previous" next-text="next" first-text="first" last-text="last"
+            previous-text="previous" next-text="next" first-text="first" last-text="last" items-per-page="pageSize"
             ng-change="loadGrid()"></pagination>
 
         <table class="table table-striped">
@@ -62,7 +71,7 @@
 
                 </th>
             </tr>
-            <tr ng-repeat="file in videoFileList | allowNullFilter : search as results">
+            <tr ng-repeat="file in videosList | allowNullFilter : search as results">
                 <td>
                     {{ file.dateModified | date : 'dd-MMM-yyyy' }}
                 </td>
@@ -76,8 +85,12 @@
                     {{ file.categoryName }}
                 </td>
                 <td>
-                    <a href="/admin/video-file/{{ file._id }}/edit" class="btn btn-primary btn-xs">Edit</a>
-                    <button type="button" ng-click="confirmDelete(file._id, file.name)" class="btn btn-danger btn-xs">Delete</button>
+                    <a href="/admin/video/{{ file._id }}/edit" class="btn btn-primary btn-xs">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <button type="button" ng-click="confirmDelete(file._id, file.name)" class="btn btn-danger btn-xs">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
                 </td>
             </tr>
             <tr ng-if="results.length == 0">
@@ -90,7 +103,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <pagination boundary-links="true" total-items="totalRecords" ng-model="currentPage" class="pagination-sm" max-size="5"
-                    previous-text="previous" next-text="next" first-text="first" last-text="last"
+                    previous-text="previous" next-text="next" first-text="first" last-text="last" items-per-page="pageSize"
                     ng-change="loadGrid()"></pagination>
             </div>
         </div>

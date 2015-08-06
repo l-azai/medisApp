@@ -1,7 +1,7 @@
 (function() {
     var adminCtrl = function($scope, $route, model, AdminFactory, $modal, VideoFactory) {
         $scope.videoCategories = model.categories;
-        $scope.videoFileList = model.videos.files;
+        $scope.videosList = model.videos.files;
         $scope.totalRecords = model.videos.count;
         $scope.currentPage = 1;
         $scope.pageSize = 10;
@@ -16,7 +16,8 @@
 
             AdminFactory.getAdminVideoHome(page, pagesize, sort, search, filter)
                 .then(function(response) {
-                    $scope.videoFileList = response.data.videos.files;
+                    $scope.videosList = response.data.videos.files;
+                    $scope.totalRecords = response.data.videos.count;
                 });
         };
 
@@ -38,11 +39,8 @@
             });
 
             modalInstance.result.then(function(id) {
-                // call api to delete file
                 VideoFactory.deleteVideo(id)
                     .then(function(response) {
-                        // TODO: display message
-                        debugger;
                         $route.reload();
                     });
             });

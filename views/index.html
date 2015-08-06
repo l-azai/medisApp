@@ -32,7 +32,7 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li ng-class="{ 'active': activeNavClass('/videos') }">
+                    <li ng-class="activeNavClass('/videos')">
                         <a href="/videos">Videos</a>
                     </li>
                     <li dropdown>
@@ -45,11 +45,22 @@
                             <li><a href="#">Separated link</a></li>
                         </ul>
                     </li>
-                    <li ng-class="{ 'active': activeNavClass('/music') }">
+                    <li ng-class="activeNavClass('/music')">
                         <a href="/music">Music (not implemented)</a>
                     </li>
-                    <li ng-class="{ 'active': activeNavClass('/admin') }">
-                        <a href="/admin">Admin</a>
+                    <li dropdown ng-class="activeNavClass('/admin')">
+                        <a href class="dropdown-toggle" dropdown-toggle>Admin <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-class="activeNavClass('/admin/videos')">
+                                <a href="/admin/videos">Videos</a>
+                            </li>
+                            <li ng-class="activeNavClass('/admin/images')">
+                                <a href="/admin/images">Images</a>
+                            </li>
+                            <li ng-class="activeNavClass('/admin/audios')">
+                                <a href="/admin/audios">Audios</a>
+                            </li>
+                        </ul>
                     </li>
                     <li ng-class="{ 'active': activeNavClass('/test-media') }">
                         <a href="/test-media">Test Media</a>

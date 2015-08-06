@@ -2,7 +2,9 @@
     var navCtrl = function($scope, $location) {
 
         $scope.activeNavClass = function(path){
-            return $location.path().indexOf(path) === 0;
+            return $location.path().indexOf(path) === 0
+                ? 'active'
+                : '';
         };
     };
 

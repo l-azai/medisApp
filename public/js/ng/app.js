@@ -1,14 +1,13 @@
 (function(){
     var mod = angular.module("medisApp",
-    ["medisApp.ctrl", "medisApp.svc", "medisApp.filters",
-    "ngRoute", "ngFileUpload", "ui.bootstrap", "ngSanitize"]);
+        ["medisApp.ctrl", "medisApp.svc", "medisApp.filters",
+        "ngRoute", "ngFileUpload", "ui.bootstrap", "ngSanitize"]);
 
     mod.config(function($routeProvider, $locationProvider){
         $routeProvider
             .when("/videos", {
-                templateUrl: "partials/videos-home.html",
+                templateUrl: "partials/videos-index.html",
                 controller: "VideoHomeCtrl",
-                routeAction: "video.home",
                 resolve: {
                     categories: function(VideoFactory) {
                         return VideoFactory.getVideoCategories()
@@ -20,38 +19,36 @@
                     }
                 }
             })
-            .when("/video-categories/:category", {
-                templateUrl: "partials/category-items.html",
+            .when("/videos/:category", {
+                templateUrl: "partials/category-videos.html",
                 controller: "VideoFilesCtrl",
-                routeAction: 'video.files',
                 resolve: {
                     videos: function(VideoFactory, $route) {
                         return VideoFactory.getVideosByCategory($route.current.params.category)
                             .then(function(response) {
                                 return response.data;
                             }, function(response){
-                                console.log('Error: getVideosByCategory. ' + response.data);
+                                console.log('Error: videos by category. ' + response.data);
                             });
                     }
                 }
             })
-            .when("/admin", {
-                templateUrl: "partials/admin-home.html",
+            .when("/admin/videos", {
+                templateUrl: "partials/admin-videos.html",
                 controller: "AdminCtrl",
-                routeAction: "admin.home",
                 resolve: {
                     model: function(AdminFactory) {
                         return AdminFactory.getAdminVideoHome()
                             .then(function(response) {
                                 return response.data;
                             }, function(response) {
-                                console.log('Error: adminVideoHome. ' + response.data);
+                                console.log('Error: admin videos. ' + response.data);
                             });
                     }
                 }
             })
-            .when("/admin/video-file/add", {
-                templateUrl: "partials/admin-videofile-add.html",
+            .when("/admin/video/add", {
+                templateUrl: "partials/admin-video-add.html",
                 controller: "AdminVideoAddCtrl",
                 resolve: {
                     model: function(VideoFactory) {
@@ -64,8 +61,8 @@
                     }
                 }
             })
-            .when("/admin/video-file/:id/edit", {
-                templateUrl: "partials/admin-videofile-edit.html",
+            .when("/admin/video/:id/edit", {
+                templateUrl: "partials/admin-video-edit.html",
                 controller: "AdminVideoEditCtrl",
                 resolve: {
                     model: function(VideoFactory, $q, $route) {

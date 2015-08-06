@@ -4,17 +4,12 @@
         $scope.videoFileList = model.videos.files;
         $scope.totalRecords = model.videos.count;
         $scope.currentPage = 1;
-        $scope.pageSizeList = [
-            { value: 10, selected: true },
-            { value: 20 },
-            { value: 30 },
-            { value: 40 },
-            { value: 50 }
-        ];
+        $scope.pageSize = 10;
+        $scope.pageSizeList = [ 10, 20, 30, 40, 50 ];
 
         $scope.loadGrid = function() {
             var page = $scope.currentPage;
-            var pagesize = 10; // set later
+            var pagesize = $scope.pageSize; // set later
             var sort = ''; // set later
             var search = '';
             var filter = '';

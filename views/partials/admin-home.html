@@ -2,23 +2,18 @@
     <div class="page-header">
         <h3>Video Files</h3>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-info">
         <div class="panel-heading">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="input-group">
-                        <input type="text" class="form-control" ng-model="search.name" placeholder="Search Video.." />
+                        <input type="text" class="form-control" ng-model="search.name" placeholder="Search Videos.." />
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>
                     </div>
-                </div>
-                <div class="col-sm-offset-1 col-sm-2">
-                    <select class="form-control" ng-init="pageSize = pageSizeList[0]" ng-model="pageSize"
-                    ng-options="size.value for size in pageSizeList">
-                    </select>
                 </div>
                 <div class="col-sm-3 col-md-3">
                     <select name="catId" ng-model="search.catId" class="form-control"
@@ -27,6 +22,20 @@
                             Filter By Category
                         </option>
                     </select>
+                </div>
+                <div class="col-sm-offset-3 col-sm-2">
+                    <div class="row">
+                        <div class="col-sm-offset-1 col-sm-11">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label class="small hidden-xs hidden-sm" for="pageSize">Show:</label>
+                                    <select id="pageSize" class="form-control" ng-model="pageSize" ng-change="loadGrid()"
+                                    ng-options="size for size in pageSizeList">
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,8 +76,8 @@
                     {{ file.categoryName }}
                 </td>
                 <td>
-                    <a href="/admin/video-file/{{ file._id }}/edit" class="btn btn-primary btn-sm">Edit</a>
-                    <button type="button" ng-click="confirmDelete(file._id, file.name)" class="btn btn-danger btn-sm">Delete</button>
+                    <a href="/admin/video-file/{{ file._id }}/edit" class="btn btn-primary btn-xs">Edit</a>
+                    <button type="button" ng-click="confirmDelete(file._id, file.name)" class="btn btn-danger btn-xs">Delete</button>
                 </td>
             </tr>
             <tr ng-if="results.length == 0">

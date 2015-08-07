@@ -13,7 +13,6 @@ var _app;
 exports.init = function(app) {
 	_app = app;
 
-    // view models
     _app.get("/api/adminVideoSearchResults", adminVideoSearchResults);
 
 	_app.get("/api/getVideoCategoryList", getVideoCategoryList);
@@ -58,7 +57,7 @@ function adminVideoSearchResults(req, res) {
         }
 
         model.categories = categories;
-        _videoRepos.getVideos(searchQuery, function(vfErr, vid){
+        _videoRepos.getSearchResults(searchQuery, function(vfErr, vid){
             if(vfErr) {
                 return sendFailure(res, vfErr);
             }

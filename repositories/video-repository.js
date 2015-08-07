@@ -14,6 +14,7 @@ exports.uploadImageFile = uploadImageFile;
 exports.getLatestImageFile = getLatestImageFile;
 exports.addVideo = addVideo;
 exports.getVideos = getVideos;
+exports.getSearchResults = getSearchResults;
 exports.deleteVideo = deleteVideo;
 
 function addVideo(data, callback) {
@@ -96,48 +97,48 @@ function getVideosByCategory(categoryKey, callback){
 	});
 };
 
-function getVideos(searchQuery, callback) {
+function getVideos(callback) {
+	conn.model('videoFiles')
+		.find()
+		.sort('name')
+		.exec(function(err, files){
+			if(err){
+				return callback(err);
+			}
+
+			callback(null, files);
+		});
+};
+
+function getSearchResults(searchQuery, callback) {
 	// page, pagesize, sort, search, categoryFilter
 
-	if(searchQuery) {
-		var search = new RegExp(searchQuery.search, 'i');
+	var search = new RegExp(searchQuery.search, 'i');
 
-		var query = conn.model('videoFiles')
-			.find(searchQuery.search ? { name: search } : {})
-			.find(searchQuery.categoryFilter ? { catId: searchQuery.categoryFilter } : {})
-			.sort(searchQuery.sort)
-			.count(function(err, count){
-				if(err) {
-					return callback(err);
-				}
+	var query = conn.model('videoFiles')
+		.find(searchQuery.search ? { name: search } : {})
+		.find(searchQuery.categoryFilter ? { catId: searchQuery.categoryFilter } : {})
+		.sort(searchQuery.sort)
+		.count(function(err, count){
+			if(err) {
+				return callback(err);
+			}
 
-				query.find()
-					.skip((searchQuery.page - 1) * searchQuery.pagesize)
-					.limit(searchQuery.pagesize)
-					.exec(function(err, pagedRecords) {
-						if(err) {
-							return callback(err);
-						}
+			query.find()
+				.skip((searchQuery.page - 1) * searchQuery.pagesize)
+				.limit(searchQuery.pagesize)
+				.exec(function(err, pagedRecords) {
+					if(err) {
+						return callback(err);
+					}
 
-						var records = {
-					 			files: pagedRecords,
-								count: count
-							};
-						callback(null, records);
-					});
-			});
-	} else {
-		conn.model('videoFiles')
-			.find()
-			.sort('name')
-			.exec(function(err, files){
-				if(err){
-					return callback(err);
-				}
-
-				callback(null, files);
-			});
-	}
+					var records = {
+							files: pagedRecords,
+							count: count
+						};
+					callback(null, records);
+				});
+		});
 };
 
 function getLatestImageFile(catId, callback) {

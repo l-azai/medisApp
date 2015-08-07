@@ -100,29 +100,29 @@ function getVideos(searchQuery, callback) {
 	// page, pagesize, sort, search, categoryFilter
 
 	if(searchQuery) {
-		var query = new RegExp(searchQuery.search, 'i');
+		var search = new RegExp(searchQuery.search, 'i');
 
-		conn.model('videoFiles')
-			.find(searchQuery.search ? { name: query } : {})
+		var query = conn.model('videoFiles')
+			.find(searchQuery.search ? { name: search } : {})
 			.find(searchQuery.categoryFilter ? { catId: searchQuery.categoryFilter } : {})
 			.sort(searchQuery.sort)
-			.skip((searchQuery.page - 1) * searchQuery.pagesize)
-			.limit(searchQuery.pagesize)
-			.exec(function(err, files){
-				if(err){
+			.count(function(err, count){
+				if(err) {
 					return callback(err);
 				}
-				//TODO: fix Count
-				conn.model('videoFiles')
-					.find(searchQuery.search || {})
-					.count()
-					.exec(function(err, count){
-						console.log(count);
-						var records = {
-							files: files,
-							count: count
-						};
 
+				query.find()
+					.skip((searchQuery.page - 1) * searchQuery.pagesize)
+					.limit(searchQuery.pagesize)
+					.exec(function(err, pagedRecords) {
+						if(err) {
+							return callback(err);
+						}
+
+						var records = {
+					 			files: pagedRecords,
+								count: count
+							};
 						callback(null, records);
 					});
 			});

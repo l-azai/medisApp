@@ -1,5 +1,6 @@
 (function() {
     var adminCtrl = function($scope, $route, model, AdminFactory, $modal, VideoFactory) {
+        // model
         $scope.videoCategories = model.categories;
         $scope.videosList = model.videos.files;
         $scope.totalRecords = model.videos.count;
@@ -7,21 +8,30 @@
         $scope.pageSize = 10;
         $scope.pageSizeList = [ 10, 20, 30, 40, 50 ];
 
-        $scope.loadGrid = function() {
-            var page = $scope.currentPage;
-            var pagesize = $scope.pageSize;
-            var sort = ''; // set later
-            var search = $scope.searchText;
-            var categoryFilter = $scope.categoryFilter;
+        $scope.orderBy = function(prop) {
+            $scope.sortDesc = $scope.sortName != prop ? true : !$scope.sortDesc;
+            $scope.sortName = prop;
+            $scope.loadGrid();
+        };
 
-            AdminFactory.getVideoSearchResults(page, pagesize, sort, search, categoryFilter)
+        $scope.loadGrid = function() {
+            var searchQuery = {
+                page: $scope.currentPage,
+                pagesize: $scope.pageSize,
+                sortName: $scope.sortName,
+                sortDesc: $scope.sortDesc,
+                search: $scope.searchText,
+                categoryFilter: $scope.categoryFilter
+            };
+
+            AdminFactory.getVideoSearchResults(searchQuery)
                 .then(function(response) {
                     $scope.videosList = response.data.videos.files;
                     $scope.totalRecords = response.data.videos.count;
                 });
         };
 
-        $scope.closeMsg = function() {
+        $scope.clearMsg = function() {
             $scope.msg = '';
         };
 

@@ -44,7 +44,8 @@ function adminVideoSearchResults(req, res) {
     var searchQuery = {
         page: req.query.page || 1,
         pagesize: req.query.pagesize || 10,
-        sort: req.query.sort || 'name',
+        sortName: req.query.sortName || 'name',
+        sortDesc: req.query.sortDesc,
         search: req.query.search,
         categoryFilter: req.query.categoryFilter
     };

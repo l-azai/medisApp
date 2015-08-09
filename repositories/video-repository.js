@@ -111,14 +111,16 @@ function getVideos(callback) {
 };
 
 function getSearchResults(searchQuery, callback) {
-	// page, pagesize, sort, search, categoryFilter
-
+	// page, pagesize, sortName, sortAsc, search, categoryFilter
 	var search = new RegExp(searchQuery.search, 'i');
+	var sortQuery = searchQuery.sortDesc === 'true'
+		? '-' + searchQuery.sortName
+		: searchQuery.sortName;
 
 	var query = conn.model('videoFiles')
 		.find(searchQuery.search ? { name: search } : {})
 		.find(searchQuery.categoryFilter ? { catId: searchQuery.categoryFilter } : {})
-		.sort(searchQuery.sort)
+		.sort(sortQuery)
 		.count(function(err, count){
 			if(err) {
 				return callback(err);

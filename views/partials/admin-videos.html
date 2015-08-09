@@ -1,23 +1,28 @@
 <div class="col-sm-12">
     <div class="page-header">
-        <div class="row">
-            <div class="col-sm-12">
-                <h3><span class="glyphicon glyphicon-film"></span> Videos</h3>
-            </div>
+        <h2><span class="glyphicon glyphicon-film"></span> Videos</h2>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <alert type="success"  close="closeMsg" ng-show="msg">
+                {{ msg }}
+            </alert>
         </div>
     </div>
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="input-group">
-                        <input type="text" class="form-control" ng-model="searchText" placeholder="Search Videos.." />
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" ng-click="loadGrid()">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                    </div>
+                    <form ng-submit="loadGrid()">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="searchText" placeholder="Search Videos.." />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-sm-3">
                     <select name="catId" ng-model="categoryFilter" class="form-control" ng-change="loadGrid()"

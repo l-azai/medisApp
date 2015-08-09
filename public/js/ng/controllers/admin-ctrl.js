@@ -21,6 +21,10 @@
                 });
         };
 
+        $scope.closeMsg = function() {
+            $scope.msg = '';
+        };
+
         $scope.confirmDelete = function(id, name) {
             var modalInstance = $modal.open({
                 animation: true,
@@ -41,8 +45,8 @@
             modalInstance.result.then(function(id) {
                 VideoFactory.deleteVideo(id)
                     .then(function(response) {
-                        // TODO: show message
                         $scope.loadGrid();
+                        $scope.msg = 'Successfully deleted video';
                     });
             });
         };

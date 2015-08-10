@@ -1,93 +1,108 @@
 <div class="col-sm-12">
     <div class="page-header">
-        <h3>Edit Video</h3>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3><span class="glyphicon glyphicon-film"></span> Edit Video</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <a href="/admin/videos" class="small">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Back to Videos
+                </a>
+            </div>
+        </div>
     </div>
     <form class="form-horizontal" role="form" name="editVideoForm" ng-submit="editVideoForm.$valid && updateVideo(editVideoForm)" novalidate>
-        <div class="form-group" ng-show="msg">
-            <div class="col-sm-offset-3 col-sm-7">
-                <alert type="success">{{ msg }}</alert>
+        <fieldset>
+            <div class="form-group" ng-show="msg">
+                <div class="col-sm-offset-3 col-sm-7">
+                    <alert type="success">{{ msg }}</alert>
+                </div>
             </div>
-        </div>
-        <div class="form-group" ng-show="editVideoForm.$submitted && editVideoForm.$invalid">
-            <div class="col-sm-offset-3 col-sm-7">
-                <alert type="danger">
-                    <div ng-show="editVideoForm.categoryId.$error.required">Please select a category</div>
-                    <div ng-show="editVideoForm.videoName.$error.required">Please enter a filename</div>
-                    <div ng-show="editVideoForm.yearReleased.$error.required">Year Released is required</div>
-                    <div ng-show="editVideoForm.yearReleased.$error.pattern">Please enter a valid year (i.e. 2005)</div>
-                    <!-- <div ng-show="{{ imageUploader.queue.length === 0 }}">Please select an image to upload</div> -->
-                </alert>
+            <div class="form-group" ng-show="editVideoForm.$submitted && editVideoForm.$invalid">
+                <div class="col-sm-offset-3 col-sm-7">
+                    <alert type="danger">
+                        <div ng-show="editVideoForm.categoryId.$error.required">Please select a category</div>
+                        <div ng-show="editVideoForm.videoName.$error.required">Please enter a filename</div>
+                        <div ng-show="editVideoForm.yearReleased.$error.required">Year Released is required</div>
+                        <div ng-show="editVideoForm.yearReleased.$error.pattern">Please enter a valid year (i.e. 2005)</div>
+                        <!-- <div ng-show="{{ imageUploader.queue.length === 0 }}">Please select an image to upload</div> -->
+                    </alert>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-sm-3 control-label" for="categoryId">Video Category</label>
-            <div class="col-sm-7">
-                <select ng-model="formData.categoryId" class="form-control" name="categoryId" required
-                ng-options="c._id as c.name for c in videoCategories">
-                    <option value="">Please select...</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label" for="videoName">Name</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control" ng-model="formData.videoName" name="videoName" placeholder="Enter new video name" required />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label" for="yearReleased">Year Released</label>
-            <div class="col-sm-7">
-                <input type="text" class="form-control"
-                       ng-model="formData.yearReleased" name="yearReleased" placeholder="Enter year released (i.e. 2005)" required />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-7">
-                <span class="label label-success" ng-show="hasImage">Has Image Uploaded</span>
-                <span class="label label-success" ng-show="hasVideo">Has Video Uploaded</span>
-                <span class="label label-danger" ng-show="!hasImage">No Image Uploaded</span>
-                <span class="label label-danger" ng-show="!hasVideo">No Video Uploaded</span>
-            </div>
-        </div>
-
-        <div class="form-group" ng-show="!showUploadImage">
-            <div class="col-sm-offset-3 col-sm-7">
-                <input class="btn btn-info btn-xs" type="button" value="Upload New Image" ng-click="toggleUploadImage(true)" />
-            </div>
-        </div>
-
-        <div ng-show="showUploadImage">
             <div class="form-group">
-                <label class="col-sm-4 col-md-3 control-label" for="imageFile">Select image</label>
-                <div class="col-sm-6 col-md-7">
-                    <input class="form-control" type="file" name="imageFile" ng-model="formData.imageFile" ngf-select />
+                <label class="col-sm-3 control-label" for="categoryId">Video Category</label>
+                <div class="col-sm-7">
+                    <select ng-model="formData.categoryId" class="form-control" name="categoryId" required
+                    ng-options="c._id as c.name for c in videoCategories">
+                        <option value="">Please select...</option>
+                    </select>
                 </div>
             </div>
+
             <div class="form-group">
-                <div class="col-sm-4 col-md-3">
-                    <em>Upload progress</em>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                    <progressbar class="progress-striped" value="imageUploadProgress">{{ imageUploadProgress }}%</progressbar>
+                <label class="col-sm-3 control-label" for="videoName">Name</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" ng-model="formData.videoName" name="videoName" placeholder="Enter new video name" required />
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="yearReleased">Year Released</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control"
+                           ng-model="formData.yearReleased" name="yearReleased" placeholder="Enter year released (i.e. 2005)" required />
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-7">
-                    <div class="pull-right">
-                        <input class="btn btn-info btn-xs" type="button" value="Cancel" ng-click="toggleUploadImage(false)" />
+                    <span class="label label-success" ng-show="hasImage">Has Image Uploaded</span>
+                    <span class="label label-success" ng-show="hasVideo">Has Video Uploaded</span>
+                    <span class="label label-danger" ng-show="!hasImage">No Image Uploaded</span>
+                    <span class="label label-danger" ng-show="!hasVideo">No Video Uploaded</span>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="!showUploadImage">
+                <div class="col-sm-offset-3 col-sm-7">
+                    <input class="btn btn-info btn-xs" type="button" value="Upload New Image" ng-click="toggleUploadImage(true)" />
+                </div>
+            </div>
+
+            <div ng-show="showUploadImage">
+                <div class="form-group">
+                    <label class="col-sm-4 col-md-3 control-label" for="imageFile">Select image</label>
+                    <div class="col-sm-6 col-md-7">
+                        <input class="form-control" type="file" name="imageFile" ng-model="formData.imageFile" ngf-select />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-md-3">
+                        <em>Upload progress</em>
+                    </div>
+                    <div class="col-sm-6 col-md-7">
+                        <progressbar class="progress-striped" value="imageUploadProgress">{{ imageUploadProgress }}%</progressbar>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-7">
+                        <div class="pull-right">
+                            <input class="btn btn-info btn-xs" type="button" value="Cancel" ng-click="toggleUploadImage(false)" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-7">
-                <input type="submit" id="submit-image" value="Update" class="btn btn-primary" />
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-5">
+                    <button type="submit" id="submit-image" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span> Update
+                    </button>
+                </div>
             </div>
-        </div>
+        </fieldset>
     </form>
 </div>

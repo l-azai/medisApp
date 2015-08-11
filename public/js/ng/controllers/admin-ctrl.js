@@ -31,7 +31,7 @@
                 });
         };
 
-        $scope.clearMsg = function() {
+        $scope.closeMsg = function() {
             $scope.msg = '';
         };
 

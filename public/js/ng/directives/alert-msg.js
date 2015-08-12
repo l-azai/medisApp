@@ -28,7 +28,7 @@
 
                 $scope.alertTitle = alertTitle;
             }],
-            template: '<alert type="{{type}}" close="closeMsg()" ng-show="alertTxt"><strong>{{ alertTitle }}:</strong> <span ng-transclude></span></alert>'
+            templateUrl: '/partials/shared/alert-msg.html'
         };
     };
 

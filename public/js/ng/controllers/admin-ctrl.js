@@ -7,6 +7,7 @@
         $scope.currentPage = 1;
         $scope.pageSize = 10;
         $scope.pageSizeList = [ 10, 20, 30, 40, 50 ];
+        $scope.msg = 'test';
 
         $scope.orderBy = function(prop) {
             $scope.sortDesc = $scope.sortName != prop ? true : !$scope.sortDesc;

@@ -6,7 +6,7 @@
     mod.config(function($routeProvider, $locationProvider){
         $routeProvider
             .when("/videos", {
-                templateUrl: "partials/videos-index.html",
+                templateUrl: "/partials/videos-index.html",
                 controller: "VideoHomeCtrl",
                 resolve: {
                     categories: function(VideoFactory) {
@@ -20,7 +20,7 @@
                 }
             })
             .when("/videos/:category", {
-                templateUrl: "partials/category-videos.html",
+                templateUrl: "/partials/category-videos.html",
                 controller: "VideoFilesCtrl",
                 resolve: {
                     videos: function(VideoFactory, $route) {
@@ -34,7 +34,7 @@
                 }
             })
             .when("/admin/videos", {
-                templateUrl: "partials/admin-videos.html",
+                templateUrl: "/partials/admin/admin-videos.html",
                 controller: "AdminCtrl",
                 resolve: {
                     model: function(AdminFactory) {
@@ -48,7 +48,7 @@
                 }
             })
             .when("/admin/video/add", {
-                templateUrl: "partials/admin-video-add.html",
+                templateUrl: "/partials/admin/admin-video-add.html",
                 controller: "AdminVideoAddCtrl",
                 resolve: {
                     model: function(VideoFactory) {
@@ -62,7 +62,7 @@
                 }
             })
             .when("/admin/video/:id/edit", {
-                templateUrl: "partials/admin-video-edit.html",
+                templateUrl: "/partials/admin/admin-video-edit.html",
                 controller: "AdminVideoEditCtrl",
                 resolve: {
                     model: function(VideoFactory, $q, $route) {
@@ -86,7 +86,7 @@
                 }
             })
             .when("/test-media", {
-                templateUrl: "partials/test-media.html",
+                templateUrl: "/partials/test-media.html",
                 controller: "TestMediaCtrl"
             })
             .otherwise({

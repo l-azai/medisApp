@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(multer(
-    { 
+    {
         dest: path.join(__dirname, 'temp'),
         onFileUploadComplete: function (file, req, res) {
             console.log(file.originalname + ' uploaded to  ' + file.path)
@@ -39,11 +39,16 @@ if ('development' == app.get('env')) {
 }
 
 /*
-    send back to 
+    send back to
 */
 app.get('/', function(req, res){
     console.log('Default');
     res.sendFile(path.join(views, 'index.html'));
+});
+
+app.get('/partials/:folder/:file', function(req, res) {
+    console.log('partial/folder');
+    res.sendFile(path.join(views, 'partials/' + req.params.folder + '/' + req.params.file));
 });
 
 app.get('/partials/:name', function(req, res){
@@ -57,7 +62,7 @@ app.get('/partials/:name', function(req, res){
 homeController.init(app);
 
 
- /* 
+ /*
  -- Global error handler
  */
 //app.use(function(err, req, res, next){

@@ -4,11 +4,15 @@
     </div>
     <div class="row">
         <div class="col-sm-8">
-            <alert-msg type="success" alert-txt="msg" close-msg="closeMsg()">
+            <alert-msg type="success" ng-show="showMsg" close-msg="closeMsg()">
                 {{ msg }}
             </alert>
         </div>
     </div>
+    <!-- <div class="row">
+
+        <input type="button" ng-click="setMsg('test')" value="test" />
+    </div> -->
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="row">

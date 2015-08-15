@@ -1,7 +1,7 @@
 (function(){
     var mod = angular.module("medisApp",
         ["medisApp.ctrl", "medisApp.svc", "medisApp.filters", "medisApp.directives",
-        "ngRoute", "ngFileUpload", "ui.bootstrap", "ngSanitize"]);
+        "ngRoute", "ngFileUpload", "ui.bootstrap", "ngSanitize", "ngAnimate"]);
 
     mod.config(function($routeProvider, $locationProvider){
         $routeProvider

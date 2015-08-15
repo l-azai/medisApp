@@ -2,11 +2,11 @@
     var modalCtrl = function($scope, $modalInstance, modalModel) {
         $scope.bodyText = modalModel.bodyText;
 
-        $scope.yes = function() {
+        $scope.ok = function() {
             $modalInstance.close(modalModel.value);
         };
 
-        $scope.no = function() {
+        $scope.cancel = function() {
             $modalInstance.dismiss('cancel');
         };
     };

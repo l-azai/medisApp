@@ -1,0 +1,14 @@
+{
+  "name": "medisApp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/l-azai/medisApp",
+  "authors": [
+    "l-azai <s.wai@outlook.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ]
+}

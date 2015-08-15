@@ -7,7 +7,6 @@
         $scope.currentPage = 1;
         $scope.pageSize = 10;
         $scope.pageSizeList = [ 10, 20, 30, 40, 50 ];
-        $scope.msg = 'test';
 
         $scope.orderBy = function(prop) {
             $scope.sortDesc = $scope.sortName != prop ? true : !$scope.sortDesc;
@@ -33,12 +32,17 @@
         };
 
         $scope.closeMsg = function() {
-            $scope.msg = '';
+            $scope.showMsg = false;
+        };
+
+        $scope.setMsg = function(msg) {
+            $scope.msg = msg;
+            $scope.showMsg = true;
         };
 
         $scope.confirmDelete = function(id, name) {
             var modalInstance = $modal.open({
-                animation: true,
+                animation: false, // TODO: previously true, breaking change on ngAnimate that causes backdrop to not disappear
                 templateUrl: 'partials/confirmation-modal.html',
                 size: 'sm',
                 controller: 'ModalCtrl',
@@ -57,7 +61,8 @@
                 VideoFactory.deleteVideo(id)
                     .then(function(response) {
                         $scope.loadGrid();
-                        $scope.msg = 'Successfully deleted video';
+                        $scope.alertType = 'success';
+                        $scope.setMsg('Video deleted');
                     });
             });
         };

@@ -4921,10 +4921,15 @@ a.thumbnail.active {
   color: #333;
 }
 .alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
+    /** defaults
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    */
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
 }
 .alert h4 {
   margin-top: 0;

@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, Tahoma, sans-serif;
+    font-family: 'Helvetica Neue', Arial, Tahoma, sans-serif;
 }
 
 .vid-menu-wrapper {
@@ -43,8 +43,8 @@ body {
     width: 0;
 }
 
-.nav, .pagination, .carousel, .panel-title a { 
-    cursor: pointer; 
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
 }
 
 /* of canvas css */

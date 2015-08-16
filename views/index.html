@@ -73,6 +73,11 @@
     </nav>
     <!-- /.navbar -->
     <div class="container">
+        <div>
+            <alert-msg type="success" ng-show="showTempMsg" close-temp-msg="closeTempMsg()">
+                {{ tempMsg }}
+            </alert>
+        </div>
         <div class="row row-offcanvas row-offcanvas-right">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <p class="pull-right visible-xs">

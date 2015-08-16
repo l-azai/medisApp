@@ -7,8 +7,12 @@
                 : '';
         };
 
+        /* config when route changes */
+        $scope.$on('$routeChangeSuccess', function(event, next, current){
+            $scope.closeTempMsg();
+        });
 
-        /* Messages */
+        /* Set Messages */
         $scope.setSuccessMsg = function(msg) {
             $scope.alertType = 'success';
             setTempMsg(msg);
@@ -37,7 +41,7 @@
             $scope.tempMsg = msg;
             $scope.showTempMsg = true;
         };
-        /* END Messages */
+        /* END Set Messages */
     };
 
     angular.module("medisApp.ctrl")

@@ -1,18 +1,19 @@
 <div class="col-sm-12">
-    <div class="page-header">
+    <div class="lead">
         <div class="row">
             <div class="col-sm-12">
                 <h3><span class="glyphicon glyphicon-film"></span> Edit Video</h3>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <a href="/admin/videos" class="small">
-                    <span class="glyphicon glyphicon-chevron-left"></span> Back to Videos
-                </a>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="/admin/videos" class="small">
+                <span class="glyphicon glyphicon-chevron-left"></span> Back to Videos
+            </a>
         </div>
     </div>
+    
     <form class="form-horizontal" role="form" name="editVideoForm" ng-submit="editVideoForm.$valid && updateVideo(editVideoForm)" novalidate>
         <fieldset>
             <div class="form-group" ng-show="msg">

@@ -5,35 +5,35 @@
             transclude: true,
             scope: {
                 type: '@',
-                closeMsg: '&'
+                closeTempMsg: '&'
             },
             controller: ["$scope", function($scope) {
                 // TODO: possibly change how type is passed. Instead of explicitly setting on html,
                 // can make controller pass an object with the type and msg. $watch for the object and
                 // dynamically set type and set message.
-                var alertTitle;
+                var alertHeading;
                 var glyph;
 
                 switch(angular.lowercase($scope.type)) {
                     case 'success':
-                        alertTitle = 'Success';
+                        alertHeading = 'Success';
                         glyph = 'ok-sign';
                     break;
                     case 'danger':
-                        alertTitle = 'Error';
+                        alertHeading = 'Error';
                         glyph = 'remove-sign';
                     break;
                     case 'warning':
-                        alertTitle = 'Warning';
+                        alertHeading = 'Warning';
                         glyph = 'exclamation-sign';
                     break;
                     case 'info':
-                        alertTitle = 'Info';
+                        alertHeading = 'Info';
                         glyph = 'info-sign';
                     break;
                 }
 
-                $scope.alertTitle = alertTitle;
+                $scope.alertHeading = alertHeading;
                 $scope.glyph = glyph;
             }],
             templateUrl: '/partials/shared/alert-msg.html'

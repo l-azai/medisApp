@@ -6,6 +6,15 @@
                 ? 'active'
                 : '';
         };
+
+        $scope.closeTempMsg = function() {
+            $scope.showTempMsg = false;
+        };
+
+        $scope.setTempMsg = function(msg) {
+            $scope.tempMsg = msg;
+            $scope.showTempMsg = true;
+        };
     };
 
     angular.module("medisApp.ctrl")

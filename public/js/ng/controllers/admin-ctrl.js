@@ -31,14 +31,14 @@
                 });
         };
 
-        $scope.closeMsg = function() {
-            $scope.showMsg = false;
-        };
-
-        $scope.setMsg = function(msg) {
-            $scope.msg = msg;
-            $scope.showMsg = true;
-        };
+        // $scope.closeMsg = function() {
+        //     $scope.showTempMsg = false;
+        // };
+        //
+        // $scope.setMsg = function(msg) {
+        //     $scope.msg = msg;
+        //     $scope.showTempMsg = true;
+        // };
 
         $scope.confirmDelete = function(id, name) {
             var modalInstance = $modal.open({
@@ -62,7 +62,7 @@
                     .then(function(response) {
                         $scope.loadGrid();
                         $scope.alertType = 'success';
-                        $scope.setMsg('Video deleted');
+                        $scope.setTempMsg('Video deleted');
                     });
             });
         };

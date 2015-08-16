@@ -61,8 +61,7 @@
                 VideoFactory.deleteVideo(id)
                     .then(function(response) {
                         $scope.loadGrid();
-                        $scope.alertType = 'success';
-                        $scope.setTempMsg('Video deleted');
+                        $scope.setSuccessMsg('Video deleted');
                     });
             });
         };

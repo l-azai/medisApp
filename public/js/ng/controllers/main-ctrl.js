@@ -7,14 +7,37 @@
                 : '';
         };
 
+
+        /* Messages */
+        $scope.setSuccessMsg = function(msg) {
+            $scope.alertType = 'success';
+            setTempMsg(msg);
+        };
+
+        $scope.setErrorMsg = function(msg) {
+            $scope.alertType = 'danger';
+            setTempMsg(msg);
+        };
+
+        $scope.setInfoMsg = function(msg) {
+            $scope.alertType = 'info';
+            setTempMsg(msg);
+        };
+
+        $scope.setWarningMsg = function(msg) {
+            $scope.alertType = 'warning';
+            setTempMsg(msg);
+        };
+
         $scope.closeTempMsg = function() {
             $scope.showTempMsg = false;
         };
 
-        $scope.setTempMsg = function(msg) {
+        var setTempMsg = function(msg) {
             $scope.tempMsg = msg;
             $scope.showTempMsg = true;
         };
+        /* END Messages */
     };
 
     angular.module("medisApp.ctrl")

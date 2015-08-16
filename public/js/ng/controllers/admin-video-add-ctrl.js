@@ -5,10 +5,6 @@
         $scope.imageUploadProgress = 0;
         var addVideoForm;
 
-        $scope.testDisable = function() {
-            $scope.disableForm = true;
-        };
-
         $scope.addVideo = function(form){
             addVideoForm = form;
             var postData = {

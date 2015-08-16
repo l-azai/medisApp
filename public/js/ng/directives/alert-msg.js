@@ -8,6 +8,9 @@
                 closeMsg: '&'
             },
             controller: ["$scope", function($scope) {
+                // TODO: possibly change how type is passed. Instead of explicitly setting on html,
+                // can make controller pass an object with the type and msg. $watch for the object and
+                // dynamically set type and set message.
                 var alertTitle;
                 var glyph;
 

@@ -43,12 +43,13 @@
                     $scope.msg = err.message;
                 } else {
                     $scope.formData.imageFile = undefined;
-                    $scope.msg = 'Video has been updated successfully';
+                    $scope.disabledForm = true;
+                    $scope.setSuccessMsg('Video has been updated successfully');
                     editVideoForm.$setPristine();
                 }
             })
             .error(function(data){
-                $scope.msg = "An error occurred trying to add the video file. " + data;
+                $scope.setErrorMsg("An error occurred trying to add the video file. " + data);
             });
         };
     };

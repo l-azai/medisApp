@@ -27,13 +27,11 @@
                 } else {
                     $scope.formData.imageFile = undefined;
                     $scope.disableForm = true;
-                    // set $scope.alertType
                     $scope.setSuccessMsg('Video has been added successfully');
                     addVideoForm.$setPristine();
                 }
             })
             .error(function(data){
-                // set $scope.alertType
                 $scope.setErrorMsg("An error occurred trying to add the video file. " + data);
             });
         };

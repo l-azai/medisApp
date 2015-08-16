@@ -8,7 +8,8 @@
         };
 
         /* config when route changes */
-        $scope.$on('$routeChangeSuccess', function(event, next, current){
+        $scope.$on('$routeChangeSuccess', function(event, next, current) {
+            // so any temp messages do not persist
             $scope.closeTempMsg();
         });
 

@@ -74,7 +74,7 @@
     <!-- /.navbar -->
     <div class="container">
         <div>
-            <alert-msg type="success" ng-show="showTempMsg" close-temp-msg="closeTempMsg()">
+            <alert-msg type="{{ alertType }}" ng-show="showTempMsg" close-temp-msg="closeTempMsg()">
                 {{ tempMsg }}
             </alert>
         </div>

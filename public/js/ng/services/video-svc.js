@@ -1,5 +1,5 @@
 (function(){
-    var videoFactory = function($http){
+    var videoSvc = function($http){
         var getVideoCategories = function() {
             return $http.get('/api/getVideoCategoryList');
         };
@@ -30,5 +30,5 @@
     };
 
     angular.module("medisApp")
-        .factory("VideoFactory", ["$http", videoFactory]);
+        .factory("VideoSvc", ["$http", videoSvc]);
 }());

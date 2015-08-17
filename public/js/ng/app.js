@@ -9,8 +9,8 @@
                 templateUrl: "/partials/videos-index.html",
                 controller: "VideoHomeCtrl",
                 resolve: {
-                    categories: function(VideoFactory) {
-                        return VideoFactory.getVideoCategories()
+                    categories: function(VideoSvc) {
+                        return VideoSvc.getVideoCategories()
                             .then(function(response) {
                                 return response.data;
                             }, function(response){
@@ -23,8 +23,8 @@
                 templateUrl: "/partials/category-videos.html",
                 controller: "VideoFilesCtrl",
                 resolve: {
-                    videos: function(VideoFactory, $route) {
-                        return VideoFactory.getVideosByCategory($route.current.params.category)
+                    videos: function(VideoSvc, $route) {
+                        return VideoSvc.getVideosByCategory($route.current.params.category)
                             .then(function(response) {
                                 return response.data;
                             }, function(response){
@@ -37,8 +37,8 @@
                 templateUrl: "/partials/admin/admin-videos.html",
                 controller: "AdminCtrl",
                 resolve: {
-                    model: function(AdminFactory) {
-                        return AdminFactory.getVideoSearchResults()
+                    model: function(AdminSvc) {
+                        return AdminSvc.getVideoSearchResults()
                             .then(function(response) {
                                 return response.data;
                             }, function(response) {
@@ -51,8 +51,8 @@
                 templateUrl: "/partials/admin/admin-video-add.html",
                 controller: "AdminVideoAddCtrl",
                 resolve: {
-                    model: function(VideoFactory) {
-                        return VideoFactory.getVideoCategories()
+                    model: function(VideoSvc) {
+                        return VideoSvc.getVideoCategories()
                             .then(function(response){
                                 return response.data;
                             }, function(response) {
@@ -65,9 +65,9 @@
                 templateUrl: "/partials/admin/admin-video-edit.html",
                 controller: "AdminVideoEditCtrl",
                 resolve: {
-                    model: function(VideoFactory, $q, $route) {
-                        var promiseCat = VideoFactory.getVideoCategories();
-                        var promiseVideoFile = VideoFactory.getVideoFileById($route.current.params.id);
+                    model: function(VideoSvc, $q, $route) {
+                        var promiseCat = VideoSvc.getVideoCategories();
+                        var promiseVideoFile = VideoSvc.getVideoFileById($route.current.params.id);
 
                         return $q.all([promiseCat, promiseVideoFile]).then(function(response){
                                     var videoEditModel = {};

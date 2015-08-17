@@ -1,5 +1,5 @@
 (function(){
-    var adminVideoAddCtrl = function($scope, Upload, model) {
+    var adminVideoAddCtrl = function($scope, Upload, model, MessageSvc) {
         $scope.videoCategories = model;
         $scope.formData = {};
         $scope.imageUploadProgress = 0;
@@ -27,16 +27,16 @@
                 } else {
                     $scope.formData.imageFile = undefined;
                     $scope.disableForm = true;
-                    $scope.setSuccessMsg('Video has been added successfully');
+                    MessageSvc.setSuccessMsg('Video has been added successfully');
                     addVideoForm.$setPristine();
                 }
             })
             .error(function(data){
-                $scope.setErrorMsg("An error occurred trying to add the video file. " + data);
+                MessageSvc.setErrorMsg("An error occurred trying to add the video file. " + data);
             });
         };
     };
 
     angular.module("medisApp.ctrl")
-        .controller("AdminVideoAddCtrl", ["$scope", "Upload", "model", adminVideoAddCtrl]);
+        .controller("AdminVideoAddCtrl", ["$scope", "Upload", "model", "MessageSvc", adminVideoAddCtrl]);
 }());

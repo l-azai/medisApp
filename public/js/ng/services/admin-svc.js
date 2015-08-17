@@ -1,5 +1,5 @@
 (function(){
-    var adminFactory = function($http) {
+    var adminSvc = function($http) {
         var getVideoSearchResults = function(searchQuery) {
             return $http.get("/api/adminVideoSearchResults", { params: searchQuery });
         };
@@ -10,5 +10,5 @@
     };
 
     angular.module("medisApp")
-        .factory("AdminFactory", ["$http", adminFactory]);
+        .factory("AdminSvc", ["$http", adminSvc]);
 }());

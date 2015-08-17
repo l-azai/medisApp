@@ -73,7 +73,7 @@
     </nav>
     <!-- /.navbar -->
     <div class="container">
-        <div>
+        <div ng-cloak>
             <alert-msg type="{{ alertType }}" ng-show="showTempMsg" close-temp-msg="closeTempMsg()">
                 {{ tempMsg }}
             </alert>
@@ -126,12 +126,12 @@
     <script type="text/javascript" src="/js/ng/controllers/admin-video-edit-ctrl.js"></script>
     <script type="text/javascript" src="/js/ng/controllers/modal-ctrl.js"></script>
     <script type="text/javascript" src="/js/ng/controllers/test-media-ctrl.js"></script>
-    <script type="text/javascript" src="/js/ng/services/admin-factory.js"></script>
-    <script type="text/javascript" src="/js/ng/services/video-factory.js"></script>
-    <script type="text/javascript" src="/js/ng/services/custom-args-factory.js"></script>
+    <script type="text/javascript" src="/js/ng/services/admin-svc.js"></script>
+    <script type="text/javascript" src="/js/ng/services/video-svc.js"></script>
+    <script type="text/javascript" src="/js/ng/services/message-svc.js"></script>
+    <script type="text/javascript" src="/js/ng/services/custom-args-svc.js"></script>
     <script type="text/javascript" src="/js/ng/filters/allow-null.js"></script>
     <script type="text/javascript" src="/js/ng/directives/alert-msg.js"></script>
-    <script type="text/javascript" src="/js/ng/directives/form-fieldset.js"></script>
     <script type="text/javascript" src="/js/ng/animations/animations.js"></script>
 </body>
 

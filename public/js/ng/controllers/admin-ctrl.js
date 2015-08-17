@@ -1,5 +1,5 @@
 (function() {
-    var adminCtrl = function($scope, $route, model, AdminFactory, $modal, VideoFactory) {
+    var adminCtrl = function($scope, $route, model, AdminSvc, $modal, VideoSvc, MessageSvc) {
         // model
         $scope.videoCategories = model.categories;
         $scope.videosList = model.videos.files;
@@ -24,21 +24,12 @@
                 categoryFilter: $scope.categoryFilter
             };
 
-            AdminFactory.getVideoSearchResults(searchQuery)
+            AdminSvc.getVideoSearchResults(searchQuery)
                 .then(function(response) {
                     $scope.videosList = response.data.videos.files;
                     $scope.totalRecords = response.data.videos.count;
                 });
         };
-
-        // $scope.closeMsg = function() {
-        //     $scope.showTempMsg = false;
-        // };
-        //
-        // $scope.setMsg = function(msg) {
-        //     $scope.msg = msg;
-        //     $scope.showTempMsg = true;
-        // };
 
         $scope.confirmDelete = function(id, name) {
             var modalInstance = $modal.open({
@@ -58,15 +49,17 @@
             });
 
             modalInstance.result.then(function(id) {
-                VideoFactory.deleteVideo(id)
+                VideoSvc.deleteVideo(id)
                     .then(function(response) {
                         $scope.loadGrid();
-                        $scope.setSuccessMsg('Video deleted');
+                        MessageSvc.setSuccessMsg('Video deleted');
                     });
             });
         };
     };
 
     angular.module("medisApp.ctrl")
-        .controller("AdminCtrl", ["$scope", "$route", "model", "AdminFactory", "$modal", "VideoFactory", adminCtrl]);
+        .controller("AdminCtrl", ["$scope", "$route", "model", "AdminSvc",
+        "$modal", "VideoSvc", "MessageSvc",
+        adminCtrl]);
 }());

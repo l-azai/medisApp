@@ -1,5 +1,5 @@
 (function(){
-    var mainCtrl = function($scope, $location) {
+    var mainCtrl = function($rootScope, $scope, $location, MessageSvc) {
 
         $scope.activeNavClass = function(path) {
             return $location.path().indexOf(path) === 0
@@ -8,31 +8,16 @@
         };
 
         /* config when route changes */
-        $scope.$on('$routeChangeSuccess', function(event, next, current) {
+        $rootScope.$on('$routeChangeSuccess', function(event, next, current) {
             // so any temp messages do not persist
             $scope.closeTempMsg();
         });
 
-        /* Set Messages */
-        $scope.setSuccessMsg = function(msg) {
-            $scope.alertType = 'success';
-            setTempMsg(msg);
-        };
-
-        $scope.setErrorMsg = function(msg) {
-            $scope.alertType = 'danger';
-            setTempMsg(msg);
-        };
-
-        $scope.setInfoMsg = function(msg) {
-            $scope.alertType = 'info';
-            setTempMsg(msg);
-        };
-
-        $scope.setWarningMsg = function(msg) {
-            $scope.alertType = 'warning';
-            setTempMsg(msg);
-        };
+        $rootScope.$on('NewMsgNotification', function() {
+            var alert = MessageSvc.getMsg();
+            $scope.alertType = alert.type;
+            setTempMsg(alert.msg);
+        });
 
         $scope.closeTempMsg = function() {
             $scope.showTempMsg = false;
@@ -42,9 +27,8 @@
             $scope.tempMsg = msg;
             $scope.showTempMsg = true;
         };
-        /* END Set Messages */
     };
 
     angular.module("medisApp.ctrl")
-        .controller("MainCtrl", ["$scope", "$location", mainCtrl]);
+        .controller("MainCtrl", ["$rootScope", "$scope", "$location", "MessageSvc", mainCtrl]);
 }());

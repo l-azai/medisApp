@@ -42,7 +42,7 @@
                             .then(function(response) {
                                 return response.data;
                             }, function(response) {
-                                console.log('Error: admin videos. ' + response.data);
+                                console.log('Error: admin videos. ' + response.data); 
                             });
                     }
                 }

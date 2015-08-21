@@ -16,7 +16,7 @@
             return $http.get('/api/getVideoFileById/' + id);
         };
 
-        var deleteVideo = function(id) {
+        function deleteVideo(id) {
             return $http.post('/api/deleteVideo/' + id);
         };
 

@@ -26,7 +26,7 @@
                     $scope.msg = err.message;
                 } else {
                     $scope.formData.imageFile = undefined;
-                    $scope.disableForm = true;
+                    $scope.disabledForm = true;
                     MessageSvc.setSuccessMsg('Video has been added successfully');
                     addVideoForm.$setPristine();
                 }

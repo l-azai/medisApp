@@ -15,7 +15,7 @@
     </div>
 
     <form class="form-horizontal" role="form" name="editVideoForm" ng-submit="editVideoForm.$valid && updateVideo(editVideoForm)" novalidate>
-        <fieldset ng-attr-disabled="{{ disabledForm || undefined }}">
+        <fieldset ng-disabled="disabledForm">
             <div class="form-group" ng-show="msg">
                 <div class="col-sm-offset-3 col-sm-7">
                     <alert type="success">{{ msg }}</alert>

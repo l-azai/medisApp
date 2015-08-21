@@ -1,19 +1,23 @@
-(function(){
-    var videoSvc = function($http){
-        var getVideoCategories = function() {
+(function() {
+    function videoSvc($http) {
+        function getVideoCategories() {
             return $http.get('/api/getVideoCategoryList');
         };
 
-        var getVideosByCategory = function(category) {
+        function getVideosByCategory(category) {
             return $http.get('/api/getVideosByCategory/' + category);
         };
 
-        var getVideos = function() {
+        function getVideos() {
             return $http.get('/api/getVideos');
         };
 
-        var getVideoFileById = function(id) {
-            return $http.get('/api/getVideoFileById/' + id);
+        function getVideosByName(name) {
+            return $http.get('/api/getVideosByName/' + name); //{ params: { name: name } });
+        };
+
+        function getVideoFileById(id) {
+            return $http.get('/api/getVideoFileById/' + id); //{ params: { id: id } });
         };
 
         function deleteVideo(id) {
@@ -23,6 +27,7 @@
         return {
             getVideoCategories: getVideoCategories,
             getVideosByCategory: getVideosByCategory,
+            getVideosByName: getVideosByName,
             getVideos: getVideos,
             getVideoFileById: getVideoFileById,
             deleteVideo: deleteVideo

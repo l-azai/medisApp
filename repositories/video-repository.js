@@ -8,6 +8,7 @@ var conn = require('./db-conn'),
 exports.getVideoCategoryList = getVideoCategoryList;
 exports.getVideosByCategory = getVideosByCategory;
 exports.getVideoFileById = getVideoFileById;
+exports.getVideosByName = getVideosByName;
 exports.updateVideoById = updateVideoById;
 exports.uploadVideoFile = uploadVideoFile;
 exports.uploadImageFile = uploadImageFile;
@@ -168,6 +169,20 @@ function getVideoFileById(id, callback){
 
             callback(null, doc);
         });
+};
+
+function getVideosByName(name, callback) {
+	var searchName = new RegExp(name, 'i');
+
+	conn.model('videoFiles')
+		.find({ name: searchName })
+		.exec(function(err, docs) {
+			if(err) {
+				return callback(err);
+			}
+
+			callback(null, docs);
+		});
 };
 
 function uploadVideoFile(id, filepath, callback) {

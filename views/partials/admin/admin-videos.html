@@ -13,7 +13,8 @@
                 <div class="col-sm-4">
                     <form ng-submit="loadGrid()">
                         <div class="input-group">
-                            <input type="text" class="form-control" ng-model="searchText" placeholder="Search Videos.." />
+                            <input type="text" class="form-control" placeholder="Search Videos.." ng-model="searchText"
+                            typeahead-loading="loadingVideos" typeahead-no-results="noResultsVideos" typeahead-min-length="2" typeahead="videos for videos in videosByName($viewValue)" />
                             <span class="input-group-btn">
                                 <button class="btn btn-primary" type="submit">
                                     <span class="glyphicon glyphicon-search"></span>
@@ -74,7 +75,7 @@
 
                 </th>
             </tr>
-            <tr ng-repeat="file in videosList as results">
+            <tr ng-repeat="file in videoSearchResults as results">
                 <td>
                     {{ file.dateModified | date : 'dd-MMM-yyyy' }}
                 </td>
@@ -96,7 +97,7 @@
                     </button>
                 </td>
             </tr>
-            <tr ng-if="videosList == null || videosList.length == 0">
+            <tr ng-if="videoSearchResults == null || videoSearchResults.length == 0">
                 <td colspan="5" class="text-center">
                     No results found
                 </td>

@@ -1,12 +1,21 @@
 (function() {
-    var adminCtrl = function($scope, $route, model, AdminSvc, $modal, VideoSvc, MessageSvc) {
+    var adminCtrl = function($scope, $route, $modal, model, AdminSvc, VideoSvc, MessageSvc) {
         // model
         $scope.videoCategories = model.categories;
-        $scope.videosList = model.videos.files;
+        $scope.videoSearchResults = model.videos.files;
         $scope.totalRecords = model.videos.count;
         $scope.currentPage = 1;
         $scope.pageSize = 10;
         $scope.pageSizeList = [ 10, 20, 30, 40, 50 ];
+
+        $scope.videosByName = function(name) {
+            return VideoSvc.getVideosByName(name)
+                .then(function(response) {
+                    return response.data.map(function(item) {
+                        return item.name;
+                    });
+                });
+        };
 
         $scope.orderBy = function(prop) {
             $scope.sortDesc = $scope.sortName != prop ? true : !$scope.sortDesc;
@@ -26,7 +35,7 @@
 
             AdminSvc.getVideoSearchResults(searchQuery)
                 .then(function(response) {
-                    $scope.videosList = response.data.videos.files;
+                    $scope.videoSearchResults = response.data.videos.files;
                     $scope.totalRecords = response.data.videos.count;
                 });
         };
@@ -59,7 +68,7 @@
     };
 
     angular.module("medisApp.ctrl")
-        .controller("AdminCtrl", ["$scope", "$route", "model", "AdminSvc",
-        "$modal", "VideoSvc", "MessageSvc",
+        .controller("AdminCtrl", ["$scope", "$route", "$modal", "model", 
+            "AdminSvc", "VideoSvc", "MessageSvc",
         adminCtrl]);
 }());

@@ -1,11 +1,11 @@
-(function(){
-    var adminVideoAddCtrl = function($scope, Upload, model, MessageSvc) {
+(function() {
+    function adminVideoAddCtrl($scope, Upload, model, MessageSvc) {
         $scope.videoCategories = model;
         $scope.formData = {};
         $scope.imageUploadProgress = 0;
         var addVideoForm;
 
-        $scope.addVideo = function(form){
+        $scope.addVideo = function(form) {
             addVideoForm = form;
             var postData = {
                 videoFilename: $scope.formData.videoName,
@@ -22,7 +22,7 @@
                 $scope.imageUploadProgress = parseInt(100.0 * evt.loaded / evt.total);
             })
             .success(function(data, status, headers, config) {
-                if(data.err){
+                if(data.err) {
                     $scope.msg = err.message;
                 } else {
                     $scope.formData.imageFile = undefined;
@@ -31,7 +31,7 @@
                     addVideoForm.$setPristine();
                 }
             })
-            .error(function(data){
+            .error(function(data) {
                 MessageSvc.setErrorMsg("An error occurred trying to add the video file. " + data);
             });
         };

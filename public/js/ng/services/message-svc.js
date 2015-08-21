@@ -1,41 +1,41 @@
 (function(){
-    var messageSvc = function($rootScope) {
+    function messageSvc($rootScope) {
         var alert = {
             type: '',
             msg: ''
         };
 
-        var getMsg = function() {
+        function getMsg() {
             return alert;
         };
 
-        var setSuccessMsg = function(msg) {
+        function setSuccessMsg(msg) {
             alert.type = 'success';
             setTempMsg(msg);
         };
 
-        var setErrorMsg = function(msg) {
+        function setErrorMsg(msg) {
             alert.type = 'danger';
             setTempMsg(msg);
         };
 
-        var setInfoMsg = function(msg) {
+         function setInfoMsg(msg) {
             alert.type = 'info';
             setTempMsg(msg);
         };
 
-        var setWarningMsg = function(msg) {
+        function setWarningMsg(msg) {
             alert.type = 'warning';
             setTempMsg(msg);
         };
 
         /* private fn */
-        var setTempMsg = function(msg) {
+        function setTempMsg(msg) {
             alert.msg = msg;
             notifyMsg();
         }
 
-        var notifyMsg = function() {
+        function notifyMsg() {
             $rootScope.$emit('NewMsgNotification')
         };
         /* END private fn */

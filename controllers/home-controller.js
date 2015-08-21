@@ -19,6 +19,7 @@ exports.init = function(app) {
     _app.get("/api/getVideosByCategory/:category", getVideosByCategory);
     _app.get("/api/getVideos", getVideos);
     _app.get("/api/getVideoFileById/:id", getVideoFileById);
+    _app.get("/api/getVideosByName/:name", getVideosByName);
     _app.post("/api/addVideo", addVideo);
     _app.post("/api/updateVideoById", updateVideoById);
     _app.post("/api/deleteVideo/:id", deleteVideo);
@@ -37,6 +38,16 @@ function getVideoFileById(req, res) {
         }
 
         sendSuccess(res, doc);
+    });
+};
+
+function getVideosByName(req, res) {
+    _videoRepos.getVideosByName(req.params.name, function(err, docs) {
+        if(err) {
+            return sendFailure(res, err);
+        }
+        console.log(docs);
+        sendSuccess(res, docs);
     });
 };
 
@@ -317,7 +328,7 @@ function sendSuccess(res, data) {
 };
 
 function sendFailure(res, err) {
-	res.json({ error: err.code, message: err.message });
+	res.json(err);
 };
 
 function handleError(res, err) {

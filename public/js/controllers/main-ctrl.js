@@ -23,7 +23,7 @@
             $scope.showTempMsg = false;
         };
 
-        var setTempMsg = function(msg) {
+        function setTempMsg(msg) {
             $scope.tempMsg = msg;
             $scope.showTempMsg = true;
         };

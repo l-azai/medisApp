@@ -1,5 +1,5 @@
 (function() {
-    var adminCtrl = function($scope, $route, $modal, model, AdminSvc, VideoSvc, MessageSvc) {
+    function adminCtrl($scope, $route, $modal, model, AdminSvc, VideoSvc, MessageSvc) {
         // model
         $scope.videoCategories = model.categories;
         $scope.videoSearchResults = model.videos.files;

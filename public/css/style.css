@@ -43,6 +43,19 @@ body {
     width: 0;
 }
 
+.alert-msg.ng-hide-add,
+.alert-msg.ng-hide-remove {
+    transition: all 1s linear;
+}
+
+.alert-msg.ng-hide-add-active {
+    opacity: 0;
+}
+
+.alert-msg.ng-hide-remove-active {
+    opacity: 1;
+}
+
 .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
 }

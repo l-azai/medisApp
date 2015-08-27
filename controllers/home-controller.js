@@ -46,7 +46,7 @@ function getVideosByName(req, res) {
         if(err) {
             return sendFailure(res, err);
         }
-        console.log(docs);
+        
         sendSuccess(res, docs);
     });
 };

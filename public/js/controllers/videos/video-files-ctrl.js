@@ -1,8 +1,8 @@
 (function(){
-    var videoFilesCtrl = function($scope, $http, videos){
+    var videoFilesCtrl = function($scope, videos){
         $scope.videoFiles = videos;
     };
 
     angular.module("medisApp.ctrl")
-        .controller("VideoFilesCtrl", ["$scope", "$http", "videos", videoFilesCtrl]);
+        .controller("VideoFilesCtrl", ["$scope", "videos", videoFilesCtrl]);
 }());

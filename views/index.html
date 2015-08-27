@@ -74,7 +74,7 @@
     <!-- /.navbar -->
     <div class="container">
         <div ng-cloak>
-            <alert-msg type="{{ alertType }}" ng-show="showTempMsg" close-temp-msg="closeTempMsg()">
+            <alert-msg type="alertType" visible="showTempMsg" class="alert-msg" close-temp-msg="closeTempMsg()">
                 {{ tempMsg }}
             </alert>
         </div>
@@ -113,6 +113,7 @@
     <script type="text/javascript" src="/js/libs/ng-file-upload-shim.min.js"></script>
     <script type="text/javascript" src="/js/libs/ng-file-upload.min.js"></script>
     <script type="text/javascript" src="/js/libs/ui-bootstrap-tpls-0.13.0.min.js"></script>
+    <script type="text/javascript" src="/js/libs/TweenMax.min.js"></script>
     <script type="text/javascript" src="/js/app.js"></script>
     <script type="text/javascript" src="/js/modules/ctrl-module.js"></script>
     <script type="text/javascript" src="/js/modules/svc-module.js"></script>

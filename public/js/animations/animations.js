@@ -1,24 +1,30 @@
 (function() {
     angular.module("medisApp")
-        .animation('.slide-anim', function() {
+        .animation('.fade-in-out', function() {
             return {
                 beforeAddClass: function(element, className, done) {
-                    if (className == 'ng-hide') {
-                        // explicit set of width 100% otherwise it loses its width
-                        //jQuery(element).css({ width: '100%' }).slideUp(500, done);
-                        jQuery(element).hide();
-                        done();
+                    if (className.indexOf('ng-hide') > -1) {
+                        TweenMax.to(element, 1, { 'opacity': 0, 'onComplete': done });
                     } else {
                         done();
                     }
                 },
                 removeClass: function(element, className, done) {
-                    if (className == 'ng-hide') {
-                        //element.css('opacity', 0);
-                        jQuery(element).slideDown(500, done);
+                    if (className.indexOf('ng-hide') > -1) {
+                        TweenMax.fromTo(element, 1, { 'opacity': 0 }, { opacity:1,'onComplete': done});
                     } else {
                         done();
                     }
+                },
+                enter: function(element, done) {
+                    var height = element[0].offsetHeight;
+
+                    TweenMax.from(element, 1, { 'opacity': 0, 'margin-bottom': -height, 'onComplete': done });
+                },
+                leave: function(element, done) {
+                    var height = element[0].offsetHeight;
+
+                    TweenMax.to(element, 1, { 'opacity': 0, 'margin-bottom': -height, 'onComplete': done });
                 }
 
                 /* animation even template */

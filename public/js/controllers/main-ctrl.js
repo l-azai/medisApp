@@ -7,8 +7,14 @@
                 : '';
         };
 
+        // test alert
+        // $scope.setErrorMsg = function(msg) {
+        //     $scope.alertType = 'danger';
+        //     setTempMsg(msg);
+        // };
+
         /* config when route changes */
-        $rootScope.$on('$routeChangeSuccess', function(event, next, current) {
+        $rootScope.$on('$routeChangeStart', function(event, next, current) {
             // so any temp messages do not persist
             $scope.closeTempMsg();
         });

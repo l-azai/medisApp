@@ -31,7 +31,30 @@
 
         /* private fn */
         function setTempMsg(msg) {
-            alert.msg = msg;
+            var alertHeading, glyph;
+
+            switch (alert.type) {
+                case 'success':
+                    alertHeading = 'Success';
+                    glyph = 'ok-sign';
+                    break;
+                case 'danger':
+                    alertHeading = 'Error';
+                    glyph = 'remove-sign';
+                    break;
+                case 'warning':
+                    alertHeading = 'Warning';
+                    glyph = 'exclamation-sign';
+                    break;
+                case 'info':
+                    alertHeading = 'Info';
+                    glyph = 'info-sign';
+                    break;
+            }
+
+            alert.msg = '<strong><span class="glyphicon glyphicon-' + glyph + '"></span> ' + 
+                alertHeading + ':</strong> ' + msg;
+
             notifyMsg();
         }
 

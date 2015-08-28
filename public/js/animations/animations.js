@@ -25,6 +25,14 @@
                     var height = element[0].offsetHeight;
 
                     TweenMax.to(element, 1, { 'opacity': 0, 'margin-bottom': -height, 'onComplete': done });
+                },
+                addClass : function(element, className, done) { 
+                    //debugger;
+                    done(); 
+                },
+                beforeRemoveClass : function(element, className, done) { 
+                    //debugger;
+                    done(); 
                 }
 
                 /* animation even template */

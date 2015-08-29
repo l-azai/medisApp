@@ -14,12 +14,15 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+*.sln
+
 # Windows shortcuts
 *.lnk
 
 # folders
 node_modules
 bower_components
+Scripts
 
 # files
 prototype-inheritance.js

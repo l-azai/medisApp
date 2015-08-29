@@ -1,17 +1,25 @@
 (function() {
     angular.module("medisApp")
-        .animation('.fade-in-out', function() {
+        .animation('.slide-fade', function() {
             return {
                 beforeAddClass: function(element, className, done) {
+                    var height = element[0].offsetHeight;
+                    element.css('position', 'relative');
+
                     if (className.indexOf('ng-hide') > -1) {
-                        TweenMax.to(element, 1, { 'opacity': 0, 'onComplete': done });
+                        TweenMax.to(element, 0.5, { 'margin-bottom': -height, top: -height });
+                        TweenMax.to(element, 1, { opacity: 0, onComplete: done });
                     } else {
                         done();
                     }
                 },
                 removeClass: function(element, className, done) {
+                    var height = element[0].offsetHeight;
+                    element.css('position', 'relative');
+
                     if (className.indexOf('ng-hide') > -1) {
-                        TweenMax.fromTo(element, 1, { 'opacity': 0 }, { opacity:1,'onComplete': done});
+                        TweenMax.fromTo(element, 0.5, { opacity: 0, 'margin-bottom': -height, top: -height}, 
+                            { opacity: 1, 'margin-bottom': 0, top: 0, onComplete: done});
                     } else {
                         done();
                     }
@@ -19,12 +27,12 @@
                 enter: function(element, done) {
                     var height = element[0].offsetHeight;
 
-                    TweenMax.from(element, 1, { 'opacity': 0, 'margin-bottom': -height, 'onComplete': done });
+                    TweenMax.from(element, 0.5, { opacity: 0, 'margin-bottom': -height, onComplete: done });
                 },
                 leave: function(element, done) {
                     var height = element[0].offsetHeight;
 
-                    TweenMax.to(element, 1, { 'opacity': 0, 'margin-bottom': -height, 'onComplete': done });
+                    TweenMax.to(element, 0.5, { opacity: 0, 'margin-bottom': -height, onComplete: done });
                 },
                 addClass : function(element, className, done) { 
                     //debugger;

@@ -18,7 +18,7 @@
             // so any temp messages do not persist
             $scope.closeTempMsg();
         });
-
+        
         $rootScope.$on('NewMsgNotification', function() {
             var alert = MessageSvc.getMsg();
             $scope.alertType = alert.type;

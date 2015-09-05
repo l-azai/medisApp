@@ -17,6 +17,8 @@
         $rootScope.$on('$routeChangeStart', function(event, next, current) {
             // so any temp messages do not persist
             $scope.closeTempMsg();
+            //$scope.alertType = 'info';
+            //setTempMsg('test');
         });
         
         $rootScope.$on('NewMsgNotification', function() {

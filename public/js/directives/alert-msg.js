@@ -47,6 +47,6 @@
     };
 
     // obsolete
-    //angular.module("medisApp.directives")
-    //    .directive("alertMsg", alertDirective);
+    angular.module("medisApp.directives")
+        .directive("alertMsg", alertDirective);
 }());

@@ -7,8 +7,7 @@
                     element.css('position', 'relative');
 
                     if (className.indexOf('ng-hide') > -1) {
-                        TweenMax.to(element, 0.5, { 'margin-bottom': -height, top: -height });
-                        TweenMax.to(element, 1, { opacity: 0, onComplete: done });
+                        TweenMax.to(element, 0.5, { opacity: 0, 'margin-bottom': -height, top: -height, onComplete: done });
                     } else {
                         done();
                     }
@@ -18,8 +17,7 @@
                     element.css('position', 'relative');
 
                     if (className.indexOf('ng-hide') > -1) {
-                        TweenMax.fromTo(element, 0.5, { opacity: 0, 'margin-bottom': -height, top: -height}, 
-                            { opacity: 1, 'margin-bottom': 0, top: 0, onComplete: done});
+                        TweenMax.to(element, 0.5, { opacity: 1, 'margin-bottom': 0, top: 0, onComplete: done });
                     } else {
                         done();
                     }

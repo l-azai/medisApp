@@ -85,7 +85,7 @@
                     }
                 }
             })
-            .when("/test-media", {
+            .when("/admin/test-media", {
                 templateUrl: "/partials/test-media.html",
                 controller: "TestMediaCtrl"
             })

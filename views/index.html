@@ -59,6 +59,9 @@
                             <li ng-class="activeNavClass('/admin/audios')">
                                 <a href="/admin/audios">Audios</a>
                             </li>
+                            <li ng-class="activeNavClass('/admin/test-media')">
+                                <a href="/admin/test-media">Test Media</a>
+                            </li>
                         </ul>
                     </li>
                     <li ng-class="{ 'active': activeNavClass('/test-media') }">
@@ -144,6 +147,8 @@
 
     <!-- directives-->
     <script type="text/javascript" src="/js/directives/alert-msg.js"></script>
+    <script type="text/javascript" src="/js/directives/views.js"></script>
+    <script type="text/javascript" src="/js/directives/sw-accordion.js"></script>
 </body>
 
 </html>

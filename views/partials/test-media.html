@@ -1,5 +1,5 @@
 <div>
-    <h3>Test media stream</h3>
+    <h3>Testing Ground</h3>
     
     <div>
         <!-- <img src="/api/mediaFile/video-NJ2T-H3E" alt="image" /> -->
@@ -11,6 +11,20 @@
 	Your browser does not support the video tag.
 	</video> -->
 
-    
-    <input type="button" value="Delete" data-ng-click="deleteFile()" />
+    <input type="text" ng-model="accordIdx" />
+    <button type="button" ng-click="switchAccordion(accordIdx)">Switch Accordion</button>
+
+    <br /><br />
+
+    <sw-accord>
+        <sw-accord-group heading="Accordion Group 1 Heading">
+            Accordion Group 1 Content
+        </sw-accord-group>
+        <sw-accord-group heading="Accordion Group 2 Heading">
+            Accordion Group 2 Content
+        </sw-accord-group>
+        <sw-accord-group heading="Accordion Group 3 Heading">
+            Accordion Group 3 Content
+        </sw-accord-group>
+    </sw-accord>
 </div>

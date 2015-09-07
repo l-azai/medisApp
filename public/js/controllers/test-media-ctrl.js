@@ -1,14 +1,11 @@
 (function(){
 
-    var testMediaCtrl = function($scope, $http, $routeParams){
-        $scope.deleteFile = function(){
-            $http.post('/api/deleteFile/1')
-                .then(function(response){
-                    $scope.message = "delete successful";
-            });
+    var testMediaCtrl = function($scope){
+        $scope.switchAccordion = function (idx) {
+            $scope.swAccordion.switchAccord(idx);
         };
     };
 
     angular.module("medisApp.ctrl")
-        .controller("TestMediaCtrl", ["$scope", "$http", "$routeParams", testMediaCtrl]);
+        .controller("TestMediaCtrl", ["$scope", testMediaCtrl]);
 }());

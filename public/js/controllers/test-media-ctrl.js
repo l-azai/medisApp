@@ -1,8 +1,18 @@
 (function(){
 
-    var testMediaCtrl = function($scope){
+    var testMediaCtrl = function ($scope) {
+        $scope.accordInst = {};
+
         $scope.switchAccordion = function (idx) {
-            $scope.swAccordion.switchAccord(idx);
+            $scope.accordInst.accordion.switch(idx);
+        };
+        
+        $scope.testAlert = function () {
+            alert('test alert');
+        }
+
+        $scope.options = {
+            beforeActivate: $scope.testAlert
         };
     };
 

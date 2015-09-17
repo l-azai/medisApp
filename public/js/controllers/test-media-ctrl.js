@@ -1,19 +1,19 @@
 (function(){
 
     var testMediaCtrl = function ($scope) {
-        $scope.accordInst = {};
+        $scope.jqAccordionInst = {};
 
+        $scope.jqSwitchAccordion = function (idx) {
+            $scope.jqAccordionInst.ngSetActive(idx);
+        };
+
+
+        $scope.accordInst = {};
         $scope.switchAccordion = function (idx) {
             $scope.accordInst.accordion.switch(idx);
         };
-        
-        $scope.testAlert = function () {
-            alert('test alert');
-        }
 
-        $scope.options = {
-            beforeActivate: $scope.testAlert
-        };
+
     };
 
     angular.module("medisApp.ctrl")

@@ -15,10 +15,8 @@
                 options: '='
             },
             controller: ['$scope', '$parse', function ($scope, $parse) {
-                var beforeActivateFn = $scope.options.beforeActivate;
-                var activateFn = $scope.options.activate;
                 var accordGroups = [];
-                debugger;
+
                 // On before-activate attribute, set function with call e.g. testAlert()
                 // $parse($attrs.beforeActivate)($scope) or $scope.$eval($attrs.beforeActivate) 
                 // to call function also
@@ -27,7 +25,6 @@
                 // $parse($attrs.beforeActivate)($scope) or $scope.$eval($attrs.beforeActivate) 
                 // gets function name without calling, can check typeof function to validate to make sure,
                 // instead of blindly calling it
-
 
                 this.getAccordions = function () {
                     return accordGroups;
